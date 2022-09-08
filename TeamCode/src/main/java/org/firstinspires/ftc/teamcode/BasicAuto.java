@@ -31,12 +31,22 @@ public class BasicAuto extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-            driveForward(1000);
+            driveForward(distance(36));
+            strafeRight(distance(36));
+            sleep(30000);
 
         }
 
     }
-    private void driveForward(float distance) {
+
+    public double distance(float inches) {
+        //537.6 pulses per rotation
+        double encoders = 537.6 / (3.75 * 3.141592);
+        return encoders;
+
+    }
+
+    public void driveForward(double distance) {
 
         //Reset Encoders
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -63,7 +73,34 @@ public class BasicAuto extends LinearOpMode {
         backLeft.setPower(0);
         backRight.setPower(0);
 
-        sleep(30000);
+    }
+
+    public void strafeRight(double distance) {
+
+        //Reset Encoders
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        frontLeft.setPower(0.5);
+        frontRight.setPower(-0.5);
+        backLeft.setPower(-0.5);
+        backRight.setPower(0.5);
+
+        while (-frontRight.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+            telemetry.update();
+        }
+
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
 
     }
 }
