@@ -73,6 +73,8 @@ public class BasicAuto extends LinearOpMode {
         backLeft.setPower(0);
         backRight.setPower(0);
 
+        sleep(500);
+
     }
 
     public void strafeRight(double distance) {
@@ -101,6 +103,8 @@ public class BasicAuto extends LinearOpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
+
+        sleep(500);
 
     }
 }
