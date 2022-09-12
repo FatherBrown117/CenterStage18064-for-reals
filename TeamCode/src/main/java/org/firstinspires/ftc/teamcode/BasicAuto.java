@@ -41,8 +41,7 @@ public class BasicAuto extends LinearOpMode {
 
     public double distance(float inches) {
         //537.6 pulses per rotation
-        double encoders = inches * (537.6 / (3.75 * 3.141592));
-        return encoders;
+        return inches * (537.6 / (3.75 * 3.141592));
 
     }
 
