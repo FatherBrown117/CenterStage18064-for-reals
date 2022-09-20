@@ -81,28 +81,29 @@ public class BasicTeleOp extends LinearOpMode {
 
             //int armup2 = 0;
 
-            if (G1rightBumper) { //strafe right
+            if (gamepad1.dpad_right) { //strafe right
                 frontLeft.setPower(.75);
-                frontRight.setPower(.75);
+                frontRight.setPower(-.75);
                 backLeft.setPower(-.75);
-                backRight.setPower(-.75);
+                backRight.setPower(.75);
             }
 
-            else if (G1leftBumper) { //strafe left
+            else if (gamepad1.dpad_left) { //strafe left
                 frontLeft.setPower(-.75);
-                frontRight.setPower(-.75);
+                frontRight.setPower(.75);
+                backLeft.setPower(.75);
+                backRight.setPower(-.75);
+            } else if (gamepad1.dpad_up) {
+                frontLeft.setPower(.75);
+                frontRight.setPower(.75);
                 backLeft.setPower(.75);
                 backRight.setPower(.75);
-            } /*else if (motor6.power == 0) {
-                motor6.setPower(.1);
 
-            } */else {
-                frontLeft.setPower(G1leftStickY);
-                frontRight.setPower(G1rightStickY);
-                backLeft.setPower(G1leftStickY);
-                backRight.setPower(G1rightStickY);
-                //motor6.setPower(G1RT);
-                //motor6.setPower(G1LT);
+            } else if (gamepad1.dpad_down){
+                frontLeft.setPower(-.75);
+                frontRight.setPower(-.75);
+                backLeft.setPower(-.75);
+                backRight.setPower(-.75);
 
             }
                 /*
