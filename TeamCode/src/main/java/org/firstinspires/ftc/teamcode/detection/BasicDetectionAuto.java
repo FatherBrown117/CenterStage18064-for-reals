@@ -170,13 +170,16 @@ public class BasicDetectionAuto extends LinearOpMode {
         }
 
         /* Actually do something useful */
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) { //Just Parking
+            obj.driveForward(obj.distance(30));
+            obj.strafeLeft(obj.distance(30));
             //trajectory
             obj.driveForward(350);
-        } else if (tagOfInterest.id == MIDDLE) {
-            //trajectory
-        } else {
-            //trajectory
+        } else if (tagOfInterest.id == MIDDLE) { //trajectory
+            obj.driveForward(obj.distance(30));
+        } else { //trajectory
+            obj.driveForward(obj.distance(30));
+            obj.strafeRight(obj.distance(30));
         }
 
 

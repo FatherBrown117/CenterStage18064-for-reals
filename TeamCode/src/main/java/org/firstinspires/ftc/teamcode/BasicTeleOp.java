@@ -118,7 +118,22 @@ public class BasicTeleOp extends LinearOpMode {
             }
 
             if (G1rightStickY < 0) {
-
+                frontLeft.setPower(.5);
+                backLeft.setPower(.5);
+                frontRight.setPower(.5);
+                backRight.setPower(.5);
+            }
+            if (G1rightStickY > 0) {
+                frontLeft.setPower(-.75);
+                backLeft.setPower(-.75);
+                frontRight.setPower(-.75);
+                backRight.setPower(-.75);
+            }
+            if (G1rightStickY < 0) {
+                frontLeft.setPower(.75);
+                backLeft.setPower(.75);
+                frontRight.setPower(.75);
+                backRight.setPower(.75);
             }
 
             if (gamepad1.dpad_right) { //strafe right
