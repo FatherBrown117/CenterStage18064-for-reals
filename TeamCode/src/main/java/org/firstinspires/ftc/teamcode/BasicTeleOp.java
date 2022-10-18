@@ -46,6 +46,7 @@ public class BasicTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            /*
             double m1Power;
             double m2Power;
             double m3Power;
@@ -66,10 +67,12 @@ public class BasicTeleOp extends LinearOpMode {
             backRight.setPower(m4Power);
             //motor5.setPower(m5Power);
             //motor6.setPower(m6Power);
+            */
 
-
-            double G1rightStickY = -gamepad1.right_stick_y/1.5;
-            double G1leftStickY = -gamepad1.left_stick_y/1.5;
+            double G1rightStickY = gamepad1.right_stick_y;
+            double G1leftStickY = gamepad1.left_stick_y;
+            double G1rightStickX = gamepad1.right_stick_x;
+            double G1leftStickX = gamepad1.left_stick_x;
             boolean G1rightBumper = gamepad1.right_bumper;
             boolean G1leftBumper = gamepad1.left_bumper;
             boolean G1Y = gamepad1.y;
@@ -85,55 +88,60 @@ public class BasicTeleOp extends LinearOpMode {
             if (G1A) {
                 speed = false;
             }
-
             if (G1B) {
                 speed = true;
             }
 
-            if (G1leftStickY > 0 && speed == true) {  // Clockwise Fast
+            if (G1leftStickX > 0 && speed == true) {  // Clockwise Fast
                 frontLeft.setPower(.5);
                 backLeft.setPower(.5);
                 frontRight.setPower(-.5);
                 backRight.setPower(-.5);
             }
 
-            if (G1leftStickY < 0 && speed == true) { //Counterclockwise Fast
+            if (G1leftStickX < 0 && speed == true) { //Counterclockwise Fast
                 frontLeft.setPower(-.5);
                 backLeft.setPower(-.5);
                 frontRight.setPower(.5);
                 backRight.setPower(.5);
             }
-            if (G1leftStickY > 0 && speed == false) {  // Clockwise Slow
+            if (G1leftStickX > 0 && speed == false) {  // Clockwise Slow
                 frontLeft.setPower(.25);
                 backLeft.setPower(.25);
                 frontRight.setPower(-.25);
                 backRight.setPower(-.25);
             }
 
-            if (G1leftStickY < 0 && speed == false) { // Counterclockwise Slow
+            if (G1leftStickX < 0 && speed == false) { // Counterclockwise Slow
                 frontLeft.setPower(-.25);
                 backLeft.setPower(-.25);
                 frontRight.setPower(.25);
                 backRight.setPower(.25);
             }
 
-            if (G1rightStickY < 0) {
+            if (G1rightStickY > 0 && speed == true) { //Driving forward
                 frontLeft.setPower(.5);
                 backLeft.setPower(.5);
                 frontRight.setPower(.5);
                 backRight.setPower(.5);
             }
-            if (G1rightStickY > 0) {
-                frontLeft.setPower(-.75);
-                backLeft.setPower(-.75);
-                frontRight.setPower(-.75);
-                backRight.setPower(-.75);
+            if (G1rightStickY > 0 && speed == false) {
+                frontLeft.setPower(.25);
+                backLeft.setPower(.25);
+                frontRight.setPower(.25);
+                backRight.setPower(.25);
             }
-            if (G1rightStickY < 0) {
-                frontLeft.setPower(.75);
-                backLeft.setPower(.75);
-                frontRight.setPower(.75);
-                backRight.setPower(.75);
+            if (G1rightStickY < 0 && speed == true) {
+                frontLeft.setPower(-.5);
+                backLeft.setPower(-.5);
+                frontRight.setPower(-.5);
+                backRight.setPower(-.5);
+            }
+            if (G1rightStickY < 0 && speed == false) {
+                frontLeft.setPower(-.25);
+                backLeft.setPower(-.25);
+                frontRight.setPower(-.25);
+                backRight.setPower(-.25);
             }
 
             if (gamepad1.dpad_right) { //strafe right
@@ -143,18 +151,20 @@ public class BasicTeleOp extends LinearOpMode {
                 backRight.setPower(.75);
             }
 
-            else if (gamepad1.dpad_left) { //strafe left
+            if (gamepad1.dpad_left) { //strafe left
                 frontLeft.setPower(-.75);
                 frontRight.setPower(.75);
                 backLeft.setPower(.75);
                 backRight.setPower(-.75);
-            } else if (gamepad1.dpad_up) {
+            }
+            if (gamepad1.dpad_up) {
                 frontLeft.setPower(.75);
                 frontRight.setPower(.75);
                 backLeft.setPower(.75);
                 backRight.setPower(.75);
 
-            } else if (gamepad1.dpad_down){
+            }
+            if (gamepad1.dpad_down){
                 frontLeft.setPower(-.75);
                 frontRight.setPower(-.75);
                 backLeft.setPower(-.75);

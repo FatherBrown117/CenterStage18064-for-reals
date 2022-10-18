@@ -174,7 +174,7 @@ public class BasicDetectionAuto extends LinearOpMode {
             obj.driveForward(obj.distance(30));
             obj.strafeLeft(obj.distance(30));
             //trajectory
-            obj.driveForward(350);
+            obj.driveForward(obj.distance(36));
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             obj.driveForward(obj.distance(30));
         } else { //trajectory
