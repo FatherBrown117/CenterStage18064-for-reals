@@ -87,8 +87,7 @@ public class BasicTeleOp extends LinearOpMode {
 
             if (G1A) {
                 speed = false;
-            }
-            if (G1B) {
+            } else if (G1B) {
                 speed = true;
             }
 
@@ -97,79 +96,68 @@ public class BasicTeleOp extends LinearOpMode {
                 backLeft.setPower(.5);
                 frontRight.setPower(-.5);
                 backRight.setPower(-.5);
-            }
-
-            if (G1leftStickX < 0 && speed == true) { //Counterclockwise Fast
+            } else if (G1leftStickX < 0 && speed == true) { //Counterclockwise Fast
                 frontLeft.setPower(-.5);
                 backLeft.setPower(-.5);
                 frontRight.setPower(.5);
                 backRight.setPower(.5);
-            }
-            if (G1leftStickX > 0 && speed == false) {  // Clockwise Slow
+            } else if (G1leftStickX > 0 && speed == false) {  // Clockwise Slow
                 frontLeft.setPower(.25);
                 backLeft.setPower(.25);
                 frontRight.setPower(-.25);
                 backRight.setPower(-.25);
-            }
-
-            if (G1leftStickX < 0 && speed == false) { // Counterclockwise Slow
+            } else if (G1leftStickX < 0 && speed == false) { // Counterclockwise Slow
                 frontLeft.setPower(-.25);
                 backLeft.setPower(-.25);
                 frontRight.setPower(.25);
                 backRight.setPower(.25);
-            }
-
-            if (G1rightStickY > 0 && speed == true) { //Driving forward
+            } else if (G1rightStickY > 0 && speed == true) { //Driving forward
                 frontLeft.setPower(.5);
                 backLeft.setPower(.5);
                 frontRight.setPower(.5);
                 backRight.setPower(.5);
-            }
-            if (G1rightStickY > 0 && speed == false) {
+            } else if (G1rightStickY > 0 && speed == false) {
                 frontLeft.setPower(.25);
                 backLeft.setPower(.25);
                 frontRight.setPower(.25);
                 backRight.setPower(.25);
-            }
-            if (G1rightStickY < 0 && speed == true) {
+            } else if (G1rightStickY < 0 && speed == true) {
                 frontLeft.setPower(-.5);
                 backLeft.setPower(-.5);
                 frontRight.setPower(-.5);
                 backRight.setPower(-.5);
-            }
-            if (G1rightStickY < 0 && speed == false) {
+            } else if (G1rightStickY < 0 && speed == false) {
                 frontLeft.setPower(-.25);
                 backLeft.setPower(-.25);
                 frontRight.setPower(-.25);
                 backRight.setPower(-.25);
-            }
-
-            if (gamepad1.dpad_right) { //strafe right
+            } else if (gamepad1.dpad_right) { //strafe right
                 frontLeft.setPower(.75);
                 frontRight.setPower(-.75);
                 backLeft.setPower(-.75);
                 backRight.setPower(.75);
-            }
-
-            if (gamepad1.dpad_left) { //strafe left
+            } else if (gamepad1.dpad_left) { //strafe left
                 frontLeft.setPower(-.75);
                 frontRight.setPower(.75);
                 backLeft.setPower(.75);
                 backRight.setPower(-.75);
-            }
-            if (gamepad1.dpad_up) {
+            } else if (gamepad1.dpad_up) {
                 frontLeft.setPower(.75);
                 frontRight.setPower(.75);
                 backLeft.setPower(.75);
                 backRight.setPower(.75);
 
-            }
-            if (gamepad1.dpad_down){
+            } else if (gamepad1.dpad_down){
                 frontLeft.setPower(-.75);
                 frontRight.setPower(-.75);
                 backLeft.setPower(-.75);
                 backRight.setPower(-.75);
 
+            } else {
+                frontLeft.setPower(0);
+                frontRight.setPower(0);
+                backLeft.setPower(0);
+                backRight.setPower(0);
             }
                 /*
                 if (G1B) {
