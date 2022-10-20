@@ -85,9 +85,9 @@ public class BasicTeleOp extends LinearOpMode {
             boolean speed;
             speed = false;
 
-            if (G1A) {
+            if (gamepad1.a) {
                 speed = false;
-            } else if (G1B) {
+            } else if (gamepad1.b) {
                 speed = true;
             }
 
@@ -122,15 +122,15 @@ public class BasicTeleOp extends LinearOpMode {
                 frontRight.setPower(-.75);
                 backRight.setPower(-.75);
             } else if (G1leftStickY < 0 && speed == true) {//Driving backward
-                frontLeft.setPower(1);
-                backLeft.setPower(1);
-                frontRight.setPower(1);
-                backRight.setPower(1);
-            } else if (G1leftStickY < 0 && speed == false) {
                 frontLeft.setPower(.75);
                 backLeft.setPower(.75);
                 frontRight.setPower(.75);
                 backRight.setPower(.75);
+            } else if (G1leftStickY < 0 && speed == false) {
+                frontLeft.setPower(.5);
+                backLeft.setPower(.5);
+                frontRight.setPower(.5);
+                backRight.setPower(.5);
             } else if (gamepad1.dpad_right) { //strafe right
                 frontLeft.setPower(.5);
                 frontRight.setPower(-.5);
