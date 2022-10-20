@@ -31,8 +31,9 @@ public class BasicAuto extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-            driveForward(distance(36));
-            strafeRight(distance(36));
+            driveForward(distance(30));
+            strafeRight(distance(30));
+
             sleep(30000);
 
         }
@@ -61,6 +62,17 @@ public class BasicAuto extends LinearOpMode {
         frontRight.setPower(0.5);
         backLeft.setPower(0.5);
         backRight.setPower(0.5);
+
+        while (frontRight.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        frontLeft.setPower(0.1);
+        frontRight.setPower(0.1);
+        backLeft.setPower(0.1);
+        backRight.setPower(0.1);
 
         while (frontRight.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", frontRight.getCurrentPosition());
