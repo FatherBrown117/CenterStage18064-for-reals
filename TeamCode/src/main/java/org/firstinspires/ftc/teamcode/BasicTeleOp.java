@@ -15,7 +15,7 @@ public class BasicTeleOp extends LinearOpMode {
     private DcMotor backRight = null;
     //private DcMotor motor5 = null;
     //private DcMotor motor6 = null;
-    //private Servo servo1 = null;
+    private Servo clawServo = null;
     //private Servo servo2 = null;
 
     @Override
@@ -89,6 +89,13 @@ public class BasicTeleOp extends LinearOpMode {
                 speed = false;
             } else if (gamepad1.b) {
                 speed = true;
+            }
+
+            if (gamepad2.a){
+                clawServo.setPosition(.5);
+            }
+            if (gamepad1.b){
+                clawServo.setPosition(0);
             }
 
             if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
