@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name ="BasicAuto", group="Linear Opmode")
 public class BasicAuto extends LinearOpMode {
@@ -12,6 +13,7 @@ public class BasicAuto extends LinearOpMode {
     private DcMotor frontRight = null;
     private DcMotor backRight = null;
     private DcMotor backLeft = null;
+    private Servo clawServo = null;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,7 +45,14 @@ public class BasicAuto extends LinearOpMode {
     public double distance(float inches) {
         //537.6 pulses per rotation
         return inches * (537.6 / (3.75 * 3.141592));
+    }
 
+    public void servoOpen() {
+        clawServo.setPosition(.5);
+    }
+
+    public void servoClose() {
+        clawServo.setPosition(0);
     }
 
     public void driveForward(double distance) {
