@@ -9,12 +9,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class BasicTeleOp extends LinearOpMode {
 
+    BasicAuto obj = new BasicAuto();
+
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
-    //private DcMotor motor5 = null;
-    //private DcMotor motor6 = null;
+    private DcMotor armMotor = null;
     private Servo clawServo = null;
     //private Servo servo2 = null;
 
@@ -28,11 +29,9 @@ public class BasicTeleOp extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class,"frontRight");  //frontright, port 1
         backLeft = hardwareMap.get(DcMotor.class,"backLeft"); //backleft, port 3
         backRight = hardwareMap.get(DcMotor.class,"backRight");  //backright, port 2
-        //motor5 = hardwareMap.get(DcMotor.class, "motor5"); //carousel spinner
-        //motor6 = hardwareMap.get(DcMotor.class, "motor6"); //slide motor
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
-        //servo1 = hardwareMap.get(Servo.class, "servo1"); //servo intake right
-        //servo2 = hardwareMap.get(Servo.class, "servo2");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
@@ -92,12 +91,28 @@ public class BasicTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a){
-                clawServo.setPosition(.5);
-            }
-            if (gamepad1.b){
-                clawServo.setPosition(0);
+                clawServo.setPosition(.25);
+            } else if (gamepad2.b){
+                clawServo.setPosition(0.5);
             }
 
+            if (gamepad2.dpad_up) {
+                armMotor.setPower(1);
+                telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+                telemetry.update();
+            } else if (gamepad2.dpad_down) {
+                telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+                telemetry.update();
+                armMotor.setPower(-1);
+            } else if (gamepad2.dpad_right) {
+                armMotor.setPower(0);
+            } else if (gamepad2.dpad_left) {
+                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+                obj.armUp(3126);
+            }
+            telemetry.update();
             if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
                 frontLeft.setPower(1);
                 backLeft.setPower(1);
