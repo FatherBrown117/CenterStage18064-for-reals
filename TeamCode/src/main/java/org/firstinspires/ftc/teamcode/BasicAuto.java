@@ -201,18 +201,31 @@ public class BasicAuto extends LinearOpMode {
     public void armUp(double distance) {
 
         //Reset Encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         armMotor.setPower(0.1);
 
         while (armMotor.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        armMotor.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void armDown(double distance) {
+
+        //Reset Encoders
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armMotor.setPower(-0.1);
+
+        while (-armMotor.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
             telemetry.update();
         }

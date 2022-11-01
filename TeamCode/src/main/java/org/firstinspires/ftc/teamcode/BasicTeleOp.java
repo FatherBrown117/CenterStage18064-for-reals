@@ -91,26 +91,24 @@ public class BasicTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a){
-                clawServo.setPosition(.25);
+                clawServo.setPosition(.9);
             } else if (gamepad2.b){
-                clawServo.setPosition(0.5);
+                clawServo.setPosition(0.75);
             }
 
             if (gamepad2.dpad_up) {
-                armMotor.setPower(1);
-                telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
-                telemetry.update();
+                armUp(obj.distance(34));
+                armMotor.setPower(0.25);
+                //armMotor.setPower(1);
             } else if (gamepad2.dpad_down) {
-                telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
-                telemetry.update();
-                armMotor.setPower(-1);
+                armUp(obj.distance(24));
+                armMotor.setPower(0.25);
+                //armMotor.setPower(-1);
             } else if (gamepad2.dpad_right) {
-                armMotor.setPower(0);
+                armUp(obj.distance(14));
+                armMotor.setPower(0.25);
             } else if (gamepad2.dpad_left) {
-                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-                obj.armUp(3126);
+                armMotor.setPower(0);
             }
             telemetry.update();
             if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
@@ -233,4 +231,43 @@ public class BasicTeleOp extends LinearOpMode {
 
         }
     }
+
+    public void armUp(double distance) {
+
+        //Reset Encoders
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armMotor.setPower(0.1);
+
+        while (armMotor.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        armMotor.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void armDown(double distance) {
+
+        //Reset Encoders
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armMotor.setPower(-0.1);
+
+        while (-armMotor.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        armMotor.setPower(0);
+
+        sleep(500);
+
+    }
+
 }
