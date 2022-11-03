@@ -96,56 +96,59 @@ public class BasicTeleOp extends LinearOpMode {
                 clawServo.setPosition(0.75);
             }
 
+            //Arm movements
             if (gamepad2.dpad_up) {
-                armUp(obj.distance(34));
-                armMotor.setPower(0.25);
+                armUp(obj.distance(100)); //should go to highest terminal
+                armMotor.setPower(0.015);
                 //armMotor.setPower(1);
-            } else if (gamepad2.dpad_down) {
-                armUp(obj.distance(24));
-                armMotor.setPower(0.25);
+            } else if (gamepad2.dpad_left) {
+                armUp(obj.distance(75)); //should go to second highest terminal
+                armMotor.setPower(0.015);
                 //armMotor.setPower(-1);
             } else if (gamepad2.dpad_right) {
-                armUp(obj.distance(14));
-                armMotor.setPower(0.25);
-            } else if (gamepad2.dpad_left) {
+                armUp(obj.distance(42)); //should go to lowest terminal
+                armMotor.setPower(0.015);
+            } else if (gamepad2.dpad_down) {
                 armMotor.setPower(0);
             }
             telemetry.update();
+
+            //Driving movements
             if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
-                frontLeft.setPower(1);
-                backLeft.setPower(1);
-                frontRight.setPower(-1);
-                backRight.setPower(-1);
+                frontLeft.setPower(0.5);
+                backLeft.setPower(0.5);
+                frontRight.setPower(-0.5);
+                backRight.setPower(-0.5);
             } else if (G1rightStickX < 0 && speed == true) { //Counterclockwise Fast
-                frontLeft.setPower(-1);
-                backLeft.setPower(-1);
-                frontRight.setPower(1);
-                backRight.setPower(1);
+                frontLeft.setPower(-0.5);
+                backLeft.setPower(-0.5);
+                frontRight.setPower(0.5);
+                backRight.setPower(0.5);
             } else if (G1rightStickX > 0 && speed == false) {  // Clockwise Slow
-                frontLeft.setPower(.75);
-                backLeft.setPower(.75);
-                frontRight.setPower(-.75);
-                backRight.setPower(-.75);
+                frontLeft.setPower(0.5);
+                backLeft.setPower(0.5);
+                frontRight.setPower(-0.5);
+                backRight.setPower(-0.5);
             } else if (G1rightStickX < 0 && speed == false) { // Counterclockwise Slow
-                frontLeft.setPower(-.75);
-                backLeft.setPower(-.75);
-                frontRight.setPower(.75);
-                backRight.setPower(.75);
+                frontLeft.setPower(-0.5);
+                backLeft.setPower(-0.5);
+                frontRight.setPower(0.5);
+                backRight.setPower(0.5);
             } else if (G1leftStickY > 0 && speed == true) { //Driving forward
-                frontLeft.setPower(-1);
-                backLeft.setPower(-1);
-                frontRight.setPower(-1);
-                backRight.setPower(-1);
+                frontLeft.setPower(-0.5);
+                backLeft.setPower(-0.5);
+                frontRight.setPower(-0.5);
+                backRight.setPower(-0.5);
             } else if (G1leftStickY > 0 && speed == false) {
-                frontLeft.setPower(-.75);
-                backLeft.setPower(-.75);
-                frontRight.setPower(-.75);
-                backRight.setPower(-.75);
+                frontLeft.setPower(-0.5);
+                backLeft.setPower(-0.5);
+                frontRight.setPower(-0.5);
+                backRight.setPower(-0.5);
             } else if (G1leftStickY < 0 && speed == true) {//Driving backward
-                frontLeft.setPower(.75);
-                backLeft.setPower(.75);
-                frontRight.setPower(.75);
-                backRight.setPower(.75);
+                frontLeft.setPower(0.5);
+                backLeft.setPower(0.5);
+                frontRight.setPower(0.5);
+                backRight.setPower(0.5);
             } else if (G1leftStickY < 0 && speed == false) {
                 frontLeft.setPower(.5);
                 backLeft.setPower(.5);
@@ -162,16 +165,16 @@ public class BasicTeleOp extends LinearOpMode {
                 backLeft.setPower(.5);
                 backRight.setPower(-.5);
             } else if (gamepad1.dpad_up) {
-                frontLeft.setPower(1);
-                frontRight.setPower(1);
-                backLeft.setPower(1);
-                backRight.setPower(1);
+                frontLeft.setPower(0.5);
+                frontRight.setPower(0.5);
+                backLeft.setPower(0.5);
+                backRight.setPower(0.5);
 
             } else if (gamepad1.dpad_down) {
-                frontLeft.setPower(-1);
-                frontRight.setPower(-1);
-                backLeft.setPower(-1);
-                backRight.setPower(-1);
+                frontLeft.setPower(-0.5);
+                frontRight.setPower(-0.5);
+                backLeft.setPower(-0.5);
+                backRight.setPower(-0.5);
             } else if (G1rightBumper) {
                 frontLeft.setPower(.5);
                 frontRight.setPower(-.5);
@@ -238,7 +241,7 @@ public class BasicTeleOp extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(0.1);
+        armMotor.setPower(0.45);
 
         while (armMotor.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
@@ -257,7 +260,7 @@ public class BasicTeleOp extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(-0.1);
+        armMotor.setPower(-0.45);
 
         while (-armMotor.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
