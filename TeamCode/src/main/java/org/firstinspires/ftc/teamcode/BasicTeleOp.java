@@ -90,10 +90,11 @@ public class BasicTeleOp extends LinearOpMode {
                 speed = true;
             }
 
+            //claw movements
             if (gamepad2.a){
-                clawServo.setPosition(.9);
+                clawServo.setPosition(.30); // opens claw
             } else if (gamepad2.b){
-                clawServo.setPosition(0.75);
+                clawServo.setPosition(0.75); //closes claw
             }
 
             //Arm movements
@@ -192,6 +193,12 @@ public class BasicTeleOp extends LinearOpMode {
                 frontRight.setPower(0);
                 backLeft.setPower(0);
                 backRight.setPower(0);
+            }
+
+            if (gamepad2.right_bumper) {
+                armMotor.setPower(0.3);
+            } else if (gamepad2.left_bumper) {
+                armMotor.setPower(-0.3);
             }
                 /*
                 if (G1B) {
