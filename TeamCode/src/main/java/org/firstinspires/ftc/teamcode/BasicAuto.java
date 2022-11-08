@@ -38,12 +38,12 @@ public class BasicAuto extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()) {
-            //clawServo.setPosition(.95);
+            clawServo.setPosition(.9);
             driveForward(distance(2));
             strafeLeft(distance(39));
             driveForward(distance(30));
             armUp(distance(100));
-            //clawServo.setPosition(0.3);
+            clawServo.setPosition(0.6);
             armDown(distance(70));
             driveBackward(distance(7));
             strafeRight(distance(10));
