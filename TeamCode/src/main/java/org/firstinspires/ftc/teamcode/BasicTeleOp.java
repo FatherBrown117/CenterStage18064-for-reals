@@ -94,7 +94,7 @@ public class BasicTeleOp extends LinearOpMode {
             if (gamepad2.a){
                 clawServo.setPosition(.30); // opens claw
             } else if (gamepad2.b){
-                clawServo.setPosition(0.75); //closes claw
+                clawServo.setPosition(0.95); //closes claw
             }
 
             //Arm movements

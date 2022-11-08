@@ -34,12 +34,19 @@ public class BasicAuto extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
+
         waitForStart();
         while(opModeIsActive()) {
-            //strafeRight(distance(30)); //hopefully strafes 35 in
-            //driveForward(distance(35)); //hopefully 40 in
-
-            armUp(25);
+            //clawServo.setPosition(.95);
+            driveForward(distance(2));
+            strafeLeft(distance(39));
+            driveForward(distance(30));
+            armUp(distance(100));
+            //clawServo.setPosition(0.3);
+            armDown(distance(70));
+            driveBackward(distance(7));
+            strafeRight(distance(10));
             sleep(30000);
 
         }
@@ -204,7 +211,7 @@ public class BasicAuto extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(0.1);
+        armMotor.setPower(0.5);
 
         while (armMotor.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
@@ -223,7 +230,7 @@ public class BasicAuto extends LinearOpMode {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(-0.1);
+        armMotor.setPower(-0.5);
 
         while (-armMotor.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
