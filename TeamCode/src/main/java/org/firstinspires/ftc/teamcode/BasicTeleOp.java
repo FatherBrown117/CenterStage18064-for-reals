@@ -198,7 +198,7 @@ public class BasicTeleOp extends LinearOpMode {
             if (gamepad2.right_bumper) {
                 armMotor.setPower(0.6);
             } else if (gamepad2.left_bumper) {
-                armMotor.setPower(-0.6);
+                armMotor.setPower(-0.3);
             }
                 /*
                 if (G1B) {
