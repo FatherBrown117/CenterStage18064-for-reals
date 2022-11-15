@@ -23,7 +23,6 @@ package org.firstinspires.ftc.teamcode.detection;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -34,12 +33,11 @@ import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
 @Autonomous
-public class BasicDetectionAuto extends LinearOpMode {
+public class BasicDetectionAutoBlueRight extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -202,23 +200,24 @@ public class BasicDetectionAuto extends LinearOpMode {
         if (tagOfInterest == null || tagOfInterest.id == LEFT) { //Just Parking
             clawServo.setPosition(.9);
             sleep(500);
-            armUp(distance(5));
+            armUp(distance(12));
             driveForward(distance(1));
             strafeLeft(distance(41));
             driveForward(distance(30));
-            armUp(distance(95));
+            armUp(distance(88));
             driveForward(distance(2));
-            armDown(distance(70));
+            armDown(distance(30));
             clawServo.setPosition(0.6);
             sleep(500);
+            armDown(distance(40));
             driveBackward(distance(7));
             strafeRight(distance(10));
             sleep(30000);
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             driveForward(distance(26));
-            strafeLeft(distance(5));
+            strafeLeft(distance(3));
         } else { //trajectory
-            strafeRight(obj.distance(30));
+            strafeRight(obj.distance(25));
             driveForward(obj.distance(23));
         }
 
