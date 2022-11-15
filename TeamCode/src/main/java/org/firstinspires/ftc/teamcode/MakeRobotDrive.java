@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "BasicTeleOp")
+@TeleOp(name = "MakeRobotDrive")
 
-public class BasicTeleOp extends LinearOpMode {
+public class MakeRobotDrive extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
