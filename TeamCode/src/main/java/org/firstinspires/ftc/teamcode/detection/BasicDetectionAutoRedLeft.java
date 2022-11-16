@@ -208,10 +208,10 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
             sleep(500);
             armUp(distance(10));
             driveForward(distance(1));
-            strafeRight(distance(44));
+            strafeRight(distance(40));
             driveForward(distance(32));
             armUp(distance(90));
-            driveForward(distance(2));
+            driveForward(distance(3));
             armDown(distance(30));
             clawServo.setPosition(0.6);
             sleep(500);

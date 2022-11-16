@@ -214,11 +214,35 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
             strafeRight(distance(10));
             sleep(30000);
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            driveForward(distance(26));
-            strafeLeft(distance(3));
+            clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(1));
+            strafeLeft(distance(41));
+            driveForward(distance(30));
+            armUp(distance(88));
+            driveForward(distance(2));
+            armDown(distance(30));
+            clawServo.setPosition(0.6);
+            sleep(500);
+            armDown(distance(40));
+            driveBackward(distance(7));
+            strafeRight(distance(35));
         } else { //trajectory
-            strafeRight(obj.distance(25));
-            driveForward(obj.distance(23));
+            clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(1));
+            strafeLeft(distance(41));
+            driveForward(distance(30));
+            armUp(distance(88));
+            driveForward(distance(2));
+            armDown(distance(30));
+            clawServo.setPosition(0.6);
+            sleep(500);
+            armDown(distance(40));
+            driveBackward(distance(7));
+            strafeRight(distance(60));
         }
 
 

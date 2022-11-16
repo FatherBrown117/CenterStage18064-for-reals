@@ -202,8 +202,8 @@ public class BasicDetectionAutoRedRight extends LinearOpMode {
             sleep(500);
             armUp(distance(5));
             driveForward(distance(1));
-            strafeLeft(distance(41));
-            driveForward(distance(30));
+            strafeLeft(distance(42));
+            driveForward(distance(32));
             armUp(distance(95));
             driveForward(distance(2));
             armDown(distance(30));
@@ -211,11 +211,11 @@ public class BasicDetectionAutoRedRight extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeRight(distance(10));
+            strafeRight(distance(8));
             sleep(30000);
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             driveForward(distance(26));
-            strafeLeft(distance(5));
+            //strafeLeft(distance(5));
         } else { //trajectory
             strafeRight(obj.distance(30));
             driveForward(obj.distance(23));
