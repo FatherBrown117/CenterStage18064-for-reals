@@ -27,17 +27,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import java.util.List;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
 
 /**
  * This 2022-2023 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -49,9 +51,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
-@Disabled
-public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
+@TeleOp(name = "BasicTensorFlow", group = "Concept")
+//@Disabled
+public class BasicTensorFlow extends LinearOpMode {
 
     /*
      * Specify the source for the Tensor Flow Model.
@@ -83,7 +85,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * and paste it in to your code on the next line, between the double quotes.
      */
     private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+            "AVHOybn/////AAABmZ/4KKZIBUquncoBVq2ILkFikHHz43rfmhjETvABSh9kHyOTSDDTMi1FSxU6GbUfj1hcM4ch+HVz/vhu7VPxJUbXFuNCpgIAetH4YxgB4J0mIPbtKBafITA9Ca9Sy8QpIfy+ph+cL+586jEk7pbCe+HRsN+G0KTvmR0ptXFBJeoyDpIr8FsYmY29eNNMo/GtPaQQVOZafMXyJdcquqrA4ps0JRhKdWtPQa6dSQR6Gj8DzGjSOF0ikv2lSjRZtZ9XIw5ZbIalBzkBFE3vWOZgm60JYdR/Ui5z/UjDtkI/jHowZnQorrIJDDN/aWKLyHVhKxKjZsqIRIEXODRw17MtOESM+Bch9M6sz/kVhqKVwssk";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia

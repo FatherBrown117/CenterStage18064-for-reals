@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="BasicAuto", group="Linear Opmode")
-public class BasicAuto extends LinearOpMode {
+@Autonomous(name ="BasicAutoInversionTest", group="Linear Opmode")
+public class BasicAutoInversionTest extends LinearOpMode {
 
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
@@ -39,16 +39,18 @@ public class BasicAuto extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()) {
             clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(5));
             driveForward(distance(2));
-            strafeLeft(distance(37));
+            strafeRight(distance(41));
             driveForward(distance(30));
             armUp(distance(100));
             clawServo.setPosition(0.6);
             armDown(distance(70));
             driveBackward(distance(7));
-            strafeRight(distance(10));
+            strafeLeft(distance(10));
             sleep(30000);
-
+            //lol hi
         }
 
     }
