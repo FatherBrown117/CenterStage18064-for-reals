@@ -197,12 +197,12 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         }
 
         /* Actually do something useful */
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) { //Just Parking
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) { // NOT Just Parking
             clawServo.setPosition(.9);
             sleep(500);
-            armUp(distance(10));
+            armUp(distance(12));
             driveForward(distance(1));
-            strafeRight(distance(44));
+            strafeRight(distance(39));
             driveForward(distance(30));
             armUp(distance(90));
             driveForward(distance(2));
@@ -211,15 +211,28 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(63));
+            strafeLeft(distance(10));
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            driveForward(distance(26));
+            clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(1));
+            strafeRight(distance(39));
+            driveForward(distance(30));
+            armUp(distance(90));
+            driveForward(distance(4));
+            armDown(distance(30));
+            clawServo.setPosition(0.6);
+            sleep(500);
+            armDown(distance(40));
+            driveBackward(distance(7));
+            strafeLeft(distance(35));
         } else { //trajectory
             clawServo.setPosition(.9);
             sleep(500);
-            armUp(distance(10));
+            armUp(distance(12));
             driveForward(distance(1));
-            strafeRight(distance(44));
+            strafeRight(distance(39));
             driveForward(distance(30));
             armUp(distance(90));
             driveForward(distance(2));
@@ -228,7 +241,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(13));
+            strafeLeft(distance(60));
         }
 
 

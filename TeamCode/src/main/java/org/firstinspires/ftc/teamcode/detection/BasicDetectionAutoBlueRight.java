@@ -197,7 +197,7 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
         }
 
         /* Actually do something useful */
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) { //Just Parking
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) { //NOT Just Parking
             clawServo.setPosition(.9);
             sleep(500);
             armUp(distance(12));
