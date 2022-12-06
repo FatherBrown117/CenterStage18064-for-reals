@@ -15,7 +15,8 @@ public class MakeRobotDrive extends LinearOpMode {
     private DcMotor rightFront = null;
     private DcMotor leftRear = null;
     private DcMotor rightRear = null;
-    private DcMotor armMotor = null;
+    private DcMotor rightArm = null;
+    private DcMotor leftArm = null;
     private Servo clawServo = null;
     //private Servo servo2 = null;
 
@@ -29,7 +30,8 @@ public class MakeRobotDrive extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
         leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
         rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
@@ -100,17 +102,17 @@ public class MakeRobotDrive extends LinearOpMode {
             //Arm movements
             if (gamepad2.dpad_up) {
                 armUp(obj.distance(100)); //should go to highest terminal
-                armMotor.setPower(0.015);
-                //armMotor.setPower(1);
+                rightArm.setPower(0.015);
+                //rightArm.setPower(1);
             } else if (gamepad2.dpad_left) {
                 armUp(obj.distance(75)); //should go to second highest terminal
-                armMotor.setPower(0.015);
-                //armMotor.setPower(-1);
+                rightArm.setPower(0.015);
+                //rightArm.setPower(-1);
             } else if (gamepad2.dpad_right) {
                 armUp(obj.distance(42)); //should go to lowest terminal
-                armMotor.setPower(0.015);
+                rightArm.setPower(0.015);
             } else if (gamepad2.dpad_down) {
-                armMotor.setPower(0);
+                rightArm.setPower(0);
             }
             telemetry.update();
 
@@ -196,9 +198,11 @@ public class MakeRobotDrive extends LinearOpMode {
             }
 
             if (gamepad2.right_bumper) {
-                armMotor.setPower(0.8);
+                rightArm.setPower(0.5);
+                leftArm.setPower(0.5);
             } else if (gamepad2.left_bumper) {
-                armMotor.setPower(-0.8);
+                rightArm.setPower(-0.5);
+                leftArm.setPower(-0.5);
             }
                 /*
                 if (G1B) {
@@ -245,17 +249,17 @@ public class MakeRobotDrive extends LinearOpMode {
     public void armUp(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(0.45);
+        rightArm.setPower(0.45);
 
-        while (armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (rightArm.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        rightArm.setPower(0);
 
         sleep(500);
 
@@ -264,17 +268,17 @@ public class MakeRobotDrive extends LinearOpMode {
     public void armDown(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(-0.45);
+        rightArm.setPower(-0.45);
 
-        while (-armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (-rightArm.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        rightArm.setPower(0);
 
         sleep(500);
 
