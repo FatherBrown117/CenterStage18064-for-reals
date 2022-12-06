@@ -79,13 +79,13 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -281,14 +281,14 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(0.5);
         leftRear.setPower(0.5);
-        backRight.setPower(0.5);
+        rightRear.setPower(0.5);
 
         while (rightFront.getCurrentPosition() < (distance - 10)) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -299,7 +299,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setPower(0.1);
         rightFront.setPower(0.1);
         leftRear.setPower(0.1);
-        backRight.setPower(0.1);
+        rightRear.setPower(0.1);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -309,7 +309,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
-        backRight.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -323,14 +323,14 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(-0.5);
         leftRear.setPower(-0.5);
-        backRight.setPower(-0.5);
+        rightRear.setPower(-0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -340,7 +340,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
-        backRight.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -354,14 +354,14 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(-0.5);
         leftRear.setPower(-0.5);
-        backRight.setPower(0.5);
+        rightRear.setPower(0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -371,7 +371,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
-        backRight.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -385,14 +385,14 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(0.5);
         leftRear.setPower(0.5);
-        backRight.setPower(-0.5);
+        rightRear.setPower(-0.5);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -402,7 +402,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftRear.setPower(0);
-        backRight.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 

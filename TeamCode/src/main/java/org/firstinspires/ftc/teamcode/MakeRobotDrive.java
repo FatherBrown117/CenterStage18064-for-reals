@@ -11,10 +11,10 @@ public class MakeRobotDrive extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor backRight = null;
+    private DcMotor leftFront = null;
+    private DcMotor rightFront = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
     private DcMotor armMotor = null;
     private Servo clawServo = null;
     //private Servo servo2 = null;
@@ -25,18 +25,18 @@ public class MakeRobotDrive extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        frontLeft = hardwareMap.get(DcMotor.class,"frontLeft"); //frontleft, port 0
-        frontRight = hardwareMap.get(DcMotor.class,"frontRight");  //frontright, port 1
-        backLeft = hardwareMap.get(DcMotor.class,"backLeft"); //backleft, port 3
-        backRight = hardwareMap.get(DcMotor.class,"backRight");  //backright, port 2
+        leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
+        rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.FORWARD);
 
         //motor6.setDirection(DcMotor.Direction.REVERSE);
 
@@ -92,9 +92,9 @@ public class MakeRobotDrive extends LinearOpMode {
 
             //claw movements
             if (gamepad2.a){
-                clawServo.setPosition(.6);// opens claw
+                clawServo.setPosition(.4);// opens claw
             } else if (gamepad2.b){
-                clawServo.setPosition(0.90); //closes claw
+                clawServo.setPosition(0.95); //closes claw
             }
 
             //Arm movements
@@ -116,83 +116,83 @@ public class MakeRobotDrive extends LinearOpMode {
 
             //Driving movements
             if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
-                frontLeft.setPower(0.5);
-                backLeft.setPower(0.5);
-                frontRight.setPower(-0.5);
-                backRight.setPower(-0.5);
+                leftFront.setPower(0.5);
+                leftRear.setPower(0.5);
+                rightFront.setPower(-0.5);
+                rightRear.setPower(-0.5);
             } else if (G1rightStickX < 0 && speed == true) { //Counterclockwise Fast
-                frontLeft.setPower(-0.5);
-                backLeft.setPower(-0.5);
-                frontRight.setPower(0.5);
-                backRight.setPower(0.5);
+                leftFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
+                rightFront.setPower(0.5);
+                rightRear.setPower(0.5);
             } else if (G1rightStickX > 0 && speed == false) {  // Clockwise Slow
-                frontLeft.setPower(0.5);
-                backLeft.setPower(0.5);
-                frontRight.setPower(-0.5);
-                backRight.setPower(-0.5);
+                leftFront.setPower(0.5);
+                leftRear.setPower(0.5);
+                rightFront.setPower(-0.5);
+                rightRear.setPower(-0.5);
             } else if (G1rightStickX < 0 && speed == false) { // Counterclockwise Slow
-                frontLeft.setPower(-0.5);
-                backLeft.setPower(-0.5);
-                frontRight.setPower(0.5);
-                backRight.setPower(0.5);
+                leftFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
+                rightFront.setPower(0.5);
+                rightRear.setPower(0.5);
             } else if (G1leftStickY > 0 && speed == true) { //Driving forward
-                frontLeft.setPower(-0.5);
-                backLeft.setPower(-0.5);
-                frontRight.setPower(-0.5);
-                backRight.setPower(-0.5);
+                leftFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
+                rightFront.setPower(-0.5);
+                rightRear.setPower(-0.5);
             } else if (G1leftStickY > 0 && speed == false) {
-                frontLeft.setPower(-0.5);
-                backLeft.setPower(-0.5);
-                frontRight.setPower(-0.5);
-                backRight.setPower(-0.5);
+                leftFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
+                rightFront.setPower(-0.5);
+                rightRear.setPower(-0.5);
             } else if (G1leftStickY < 0 && speed == true) {//Driving backward
-                frontLeft.setPower(0.5);
-                backLeft.setPower(0.5);
-                frontRight.setPower(0.5);
-                backRight.setPower(0.5);
+                leftFront.setPower(0.5);
+                leftRear.setPower(0.5);
+                rightFront.setPower(0.5);
+                rightRear.setPower(0.5);
             } else if (G1leftStickY < 0 && speed == false) {
-                frontLeft.setPower(.5);
-                backLeft.setPower(.5);
-                frontRight.setPower(.5);
-                backRight.setPower(.5);
+                leftFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(.5);
             } else if (gamepad1.dpad_right) { //strafe right
-                frontLeft.setPower(.5);
-                frontRight.setPower(-.5);
-                backLeft.setPower(-.5);
-                backRight.setPower(.5);
+                leftFront.setPower(.5);
+                rightFront.setPower(-.5);
+                leftRear.setPower(-.5);
+                rightRear.setPower(.5);
             } else if (gamepad1.dpad_left) { //strafe left
-                frontLeft.setPower(-.5);
-                frontRight.setPower(.5);
-                backLeft.setPower(.5);
-                backRight.setPower(-.5);
+                leftFront.setPower(-.5);
+                rightFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightRear.setPower(-.5);
             } else if (gamepad1.dpad_up) {
-                frontLeft.setPower(0.5);
-                frontRight.setPower(0.5);
-                backLeft.setPower(0.5);
-                backRight.setPower(0.5);
+                leftFront.setPower(0.5);
+                rightFront.setPower(0.5);
+                leftRear.setPower(0.5);
+                rightRear.setPower(0.5);
 
             } else if (gamepad1.dpad_down) {
-                frontLeft.setPower(-0.5);
-                frontRight.setPower(-0.5);
-                backLeft.setPower(-0.5);
-                backRight.setPower(-0.5);
+                leftFront.setPower(-0.5);
+                rightFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
+                rightRear.setPower(-0.5);
             } else if (G1rightBumper) {
-                frontLeft.setPower(.5);
-                frontRight.setPower(-.5);
-                backLeft.setPower(-.5);
-                backRight.setPower(.5);
+                leftFront.setPower(.5);
+                rightFront.setPower(-.5);
+                leftRear.setPower(-.5);
+                rightRear.setPower(.5);
 
             } else if (G1leftBumper) {
-                frontLeft.setPower(-.5);
-                frontRight.setPower(.5);
-                backLeft.setPower(.5);
-                backRight.setPower(-.5);
+                leftFront.setPower(-.5);
+                rightFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightRear.setPower(-.5);
 
             } else {
-                frontLeft.setPower(0);
-                frontRight.setPower(0);
-                backLeft.setPower(0);
-                backRight.setPower(0);
+                leftFront.setPower(0);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0);
             }
 
             if (gamepad2.right_bumper) {
