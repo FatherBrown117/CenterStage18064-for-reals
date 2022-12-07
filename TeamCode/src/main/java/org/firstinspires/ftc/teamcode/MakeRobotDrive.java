@@ -113,6 +113,7 @@ public class MakeRobotDrive extends LinearOpMode {
                 rightArm.setPower(0.015);
             } else if (gamepad2.dpad_down) {
                 rightArm.setPower(0);
+                leftArm.setPower(0);
             }
             telemetry.update();
 

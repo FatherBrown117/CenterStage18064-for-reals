@@ -45,7 +45,8 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
     private DcMotor rightFront = null;
     private DcMotor rightRear = null;
     private DcMotor leftRear = null;
-    private DcMotor armMotor = null;
+    private DcMotor rightArm = null;
+    private DcMotor leftArm = null;
     private Servo clawServo = null;
 
     OpenCvCamera camera;
@@ -80,13 +81,14 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
+        leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -411,17 +413,21 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
     public void armUp(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(0.5);
+        rightArm.setPower(0.5);
+        leftArm.setPower(0.5);
 
-        while (armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (rightArm.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        rightArm.setPower(0);
+        leftArm.setPower(0);
 
         sleep(500);
 
@@ -430,17 +436,21 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
     public void armDown(double distance) {
 
         //Reset Encoders
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armMotor.setPower(-0.5);
+        rightArm.setPower(-0.5);
+        leftArm.setPower(-0.5);
 
-        while (-armMotor.getCurrentPosition() < distance) {
-            telemetry.addData("Arm Encoder", armMotor.getCurrentPosition());
+        while (-rightArm.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
             telemetry.update();
         }
 
-        armMotor.setPower(0);
+        rightArm.setPower(0);
+        leftArm.setPower(0);
 
         sleep(500);
 
