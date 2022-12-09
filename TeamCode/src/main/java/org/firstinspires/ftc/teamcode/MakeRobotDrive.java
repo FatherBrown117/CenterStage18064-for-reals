@@ -101,16 +101,16 @@ public class MakeRobotDrive extends LinearOpMode {
 
             //Arm movements
             if (gamepad2.dpad_up) {
-                armUp(obj.distance(100)); //should go to highest terminal
-                rightArm.setPower(0.015);
+                //armUp(obj.distance(100)); //should go to highest terminal
+                //rightArm.setPower(0.015);
                 //rightArm.setPower(1);
             } else if (gamepad2.dpad_left) {
-                armUp(obj.distance(75)); //should go to second highest terminal
-                rightArm.setPower(0.015);
+                //armUp(obj.distance(75)); //should go to second highest terminal
+                //rightArm.setPower(0.015);
                 //rightArm.setPower(-1);
             } else if (gamepad2.dpad_right) {
-                armUp(obj.distance(42)); //should go to lowest terminal
-                rightArm.setPower(0.015);
+                //armUp(obj.distance(42)); //should go to lowest terminal
+                //rightArm.setPower(0.015);
             } else if (gamepad2.dpad_down) {
                 rightArm.setPower(0);
                 leftArm.setPower(0);
@@ -164,10 +164,10 @@ public class MakeRobotDrive extends LinearOpMode {
                 leftRear.setPower(-.5);
                 rightRear.setPower(.5);
             } else if (gamepad1.dpad_left) { //strafe left
-                leftFront.setPower(-.5);
-                rightFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightRear.setPower(-.5);
+                leftFront.setPower(-0.75);
+                rightFront.setPower(0.5);
+                leftRear.setPower(0.75);
+                rightRear.setPower(-0.5);//changed from 0.5 to 0.25
             } else if (gamepad1.dpad_up) {
                 leftFront.setPower(0.5);
                 rightFront.setPower(0.5);

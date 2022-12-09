@@ -81,7 +81,7 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
         rightRear = hardwareMap.get(DcMotor.class, "rightRear");
-        rightArm = hardwareMap.get(DcMotor.class, "armMotor");
+        rightArm = hardwareMap.get(DcMotor.class, "rightArm");
         leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -200,16 +200,25 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) { //Just Parking
-            strafeLeft(obj.distance(30));
-            driveForward(obj.distance(23));
-            sleep(30000);
+            clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(1));
+            strafeLeft(distance(22)); //changed to just park
+            driveForward(distance(22)); //ditto
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            driveForward(distance(26));
+            clawServo.setPosition(.9);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(22)); //changed from 1 to make just park
         } else { //trajectory
             clawServo.setPosition(.9);
             sleep(500);
             armUp(distance(10));
             driveForward(distance(1));
+            strafeRight(distance(26));//these two lines added so just parks
+            driveForward(distance(22));
+            /*
             strafeRight(distance(40));
             driveForward(distance(32));
             armUp(distance(90));
@@ -219,7 +228,8 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(13));;
+            strafeLeft(distance(13));
+             */
         }
 
 
@@ -263,9 +273,9 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.5);
+        leftFront.setPower(0.35);//changed fro .5 to compensate for problem
         rightFront.setPower(0.5);
-        leftRear.setPower(0.5);
+        leftRear.setPower(0.35);//same as above comment
         rightRear.setPower(0.5);
 
         while (rightFront.getCurrentPosition() < (distance - 10)) {
@@ -368,9 +378,9 @@ public class BasicDetectionAutoRedLeft extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
-        rightFront.setPower(0.5);
+        rightFront.setPower(0.25);
         leftRear.setPower(0.5);
-        rightRear.setPower(-0.5);
+        rightRear.setPower(-0.25);//changed from 0.5 to 0.25
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
