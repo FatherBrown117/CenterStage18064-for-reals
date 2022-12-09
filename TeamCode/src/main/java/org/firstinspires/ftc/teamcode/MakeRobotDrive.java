@@ -139,35 +139,35 @@ public class MakeRobotDrive extends LinearOpMode {
                 rightFront.setPower(0.5);
                 rightRear.setPower(0.5);
             } else if (G1leftStickY > 0 && speed == true) { //Driving forward
-                leftFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightFront.setPower(-0.5);
-                rightRear.setPower(-0.5);
-            } else if (G1leftStickY > 0 && speed == false) {
-                leftFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightFront.setPower(-0.5);
-                rightRear.setPower(-0.5);
-            } else if (G1leftStickY < 0 && speed == true) {//Driving backward
-                leftFront.setPower(0.5);
-                leftRear.setPower(0.5);
-                rightFront.setPower(0.5);
-                rightRear.setPower(0.5);
-            } else if (G1leftStickY < 0 && speed == false) {
-                leftFront.setPower(.5);
-                leftRear.setPower(.5);
-                rightFront.setPower(.5);
-                rightRear.setPower(.5);
-            } else if (gamepad1.dpad_right) { //strafe right
-                leftFront.setPower(.5);
-                rightFront.setPower(-.5);
-                leftRear.setPower(-.5);
-                rightRear.setPower(.5);
-            } else if (gamepad1.dpad_left) { //strafe left
                 leftFront.setPower(-0.75);
-                rightFront.setPower(0.5);
+                leftRear.setPower(-0.75);
+                rightFront.setPower(-0.75);
+                rightRear.setPower(-0.75);
+            } else if (G1leftStickY > 0 && speed == false) {
+                leftFront.setPower(-0.75);
+                leftRear.setPower(-0.75);
+                rightFront.setPower(-0.75);
+                rightRear.setPower(-0.75);
+            } else if (G1leftStickY < 0 && speed == true) {//Driving backward
+                leftFront.setPower(0.75);
                 leftRear.setPower(0.75);
-                rightRear.setPower(-0.5);//changed from 0.5 to 0.25
+                rightFront.setPower(0.75);
+                rightRear.setPower(0.75);
+            } else if (G1leftStickY < 0 && speed == false) {
+                leftFront.setPower(.75);
+                leftRear.setPower(.75);
+                rightFront.setPower(.75);
+                rightRear.setPower(.75);
+            } else if (gamepad1.dpad_right) { //strafe right
+                leftFront.setPower(1);
+                rightFront.setPower(-1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
+            } else if (gamepad1.dpad_left) { //strafe left
+                leftFront.setPower(-1);
+                rightFront.setPower(.75);
+                leftRear.setPower(1);
+                rightRear.setPower(-0.75);//changed from 0.5 to 0.25
             } else if (gamepad1.dpad_up) {
                 leftFront.setPower(0.5);
                 rightFront.setPower(0.5);
@@ -199,11 +199,11 @@ public class MakeRobotDrive extends LinearOpMode {
             }
 
             if (gamepad2.right_bumper) {
-                rightArm.setPower(0.5);
-                leftArm.setPower(0.5);
+                rightArm.setPower(0.75);
+                leftArm.setPower(0.75);
             } else if (gamepad2.left_bumper) {
-                rightArm.setPower(-0.5);
-                leftArm.setPower(-0.5);
+                rightArm.setPower(-0.75);
+                leftArm.setPower(-0.75);
             }
                 /*
                 if (G1B) {
