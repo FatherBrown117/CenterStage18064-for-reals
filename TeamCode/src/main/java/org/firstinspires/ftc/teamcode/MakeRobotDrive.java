@@ -199,11 +199,11 @@ public class MakeRobotDrive extends LinearOpMode {
             }
 
             if (gamepad2.right_bumper) {
-                rightArm.setPower(0.75);
-                leftArm.setPower(0.75);
+                rightArm.setPower(0.5);
+                leftArm.setPower(0.5);
             } else if (gamepad2.left_bumper) {
-                rightArm.setPower(-0.75);
-                leftArm.setPower(-0.75);
+                rightArm.setPower(-0.3);
+                leftArm.setPower(-0.3);
             }
                 /*
                 if (G1B) {
