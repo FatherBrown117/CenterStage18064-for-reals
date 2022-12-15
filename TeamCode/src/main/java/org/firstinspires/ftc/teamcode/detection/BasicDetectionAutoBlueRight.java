@@ -89,9 +89,11 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
@@ -207,7 +209,7 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
             strafeLeft(distance(22)); //changed to just park
             driveForward(distance(22)); //ditto
             /*
-            armUp(distance(88));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.6);
@@ -225,7 +227,7 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
             /*
             strafeLeft(distance(41));
             driveForward(distance(30));
-            armUp(distance(88));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.6);
@@ -245,7 +247,7 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
             /*
             strafeLeft(distance(41));
             driveForward(distance(30));
-            armUp(distance(88));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.6);
@@ -402,9 +404,9 @@ public class BasicDetectionAutoBlueRight extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
-        rightFront.setPower(0.25);
+        rightFront.setPower(0.5);
         leftRear.setPower(0.5);
-        rightRear.setPower(-0.25);//changed from 0.5 to 0.25
+        rightRear.setPower(-0.5);//changed from 0.5 to 0.25
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -39,6 +40,10 @@ public class TwoPlayerMode extends LinearOpMode {
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //motor6.setDirection(DcMotor.Direction.REVERSE);
 
@@ -165,9 +170,9 @@ public class TwoPlayerMode extends LinearOpMode {
                 rightRear.setPower(1);
             } else if (gamepad1.dpad_left) { //strafe left
                 leftFront.setPower(-1);
-                rightFront.setPower(.75);
+                rightFront.setPower(1);
                 leftRear.setPower(1);
-                rightRear.setPower(-0.75);//changed from 0.5 to 0.25
+                rightRear.setPower(-1);
             } else if (gamepad1.dpad_up) {
                 leftFront.setPower(0.5);
                 rightFront.setPower(0.5);
@@ -205,39 +210,6 @@ public class TwoPlayerMode extends LinearOpMode {
                 rightArm.setPower(-0.3);
                 leftArm.setPower(-0.3);
             }
-                /*
-                if (G1B) {
-                    servo1.setPosition(.25);
-                    servo2.setPosition(.75); // continuously turn clockwise
-
-                }else if (G1X) {
-                    servo1.setPosition(.75);
-                    servo2.setPosition(.25); // continuously turn counter clockwise
-
-                } else if (G1A) {
-                    servo1.setPosition(.5);
-                    servo2.setPosition(.5);
-                }
-                */
-            //servo2 on right
-                /*
-                if (gamepad1.dpad_up) {
-                    motor5.setPower(.80);
-
-                } else if (gamepad1.dpad_down) {
-                    motor5.setPower(-.80);
-
-                } else {
-                    motor5.setPower(0);
-                }
-
-              if (gamepad1.right_bumper) {
-                motor6.setPower(0.5);
-            } else if (gamepad1.left_bumper) {
-                motor6.setPower(-0.5);
-            } else {
-                motor6.setPower(0);
-            }*/
 
 
 

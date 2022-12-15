@@ -89,9 +89,11 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
@@ -199,61 +201,56 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         }
 
         /* Actually do something useful */
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) { // NOT Just Parking
-            clawServo.setPosition(.9);
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+            clawServo.setPosition(.95);
             sleep(500);
             armUp(distance(12));
             driveForward(distance(1));
-            strafeLeft(distance(22)); //changed to just park
-            driveForward(distance(22)); //ditto
-            /*
-            strafeRight(distance(39));
+            //strafeLeft(distance(22)); // add these two lines and comment out
+            //driveForward(distance(22)); // everything below to just park
+            strafeRight(distance(40));
             driveForward(distance(30));
-            armUp(distance(90));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
-            clawServo.setPosition(0.6);
+            clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
             strafeLeft(distance(10));
-             */
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            clawServo.setPosition(.9);
+            clawServo.setPosition(.95);
             sleep(500);
             armUp(distance(12));
-            driveForward(distance(22)); //changed from 1 to make just park
-            /*
-            strafeRight(distance(39));
+            driveForward(distance(1)); //change to 22 to make just park
+            strafeRight(distance(40));
             driveForward(distance(30));
-            armUp(distance(90));
+            armUp(4040);
             driveForward(distance(4));
             armDown(distance(30));
-            clawServo.setPosition(0.6);
+            clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
             strafeLeft(distance(35));
-             */
         } else { //trajectory
-            clawServo.setPosition(.9);
+            clawServo.setPosition(.95);
             sleep(500);
             armUp(distance(12));
             driveForward(distance(1));
-            strafeRight(distance(26));
-            driveForward(distance(22));
-            /*
-            strafeRight(distance(39));
+            //strafeRight(distance(26));
+            //driveForward(distance(22));     *note: for just parking
+            strafeRight(distance(40));
             driveForward(distance(30));
-            armUp(distance(90));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
-            clawServo.setPosition(0.6);
+            clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
             strafeLeft(distance(60));
-            */
+
         }
 
 
@@ -297,9 +294,9 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(0.35);//changed fro .5 to compensate for problem
+        leftFront.setPower(0.5);
         rightFront.setPower(0.5);
-        leftRear.setPower(0.35);//same as above comment
+        leftRear.setPower(0.5);
         rightRear.setPower(0.5);
 
         while (rightFront.getCurrentPosition() < (distance - 10)) {
@@ -402,9 +399,9 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
-        rightFront.setPower(0.25);
+        rightFront.setPower(0.5);
         leftRear.setPower(0.5);
-        rightRear.setPower(-0.25);//changed from 0.5 to 0.25
+        rightRear.setPower(-0.5);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());

@@ -89,9 +89,11 @@ public class BasicDetectionAutoRedRight extends LinearOpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
@@ -206,7 +208,7 @@ public class BasicDetectionAutoRedRight extends LinearOpMode {
             driveForward(distance(1));
             strafeLeft(distance(42));
             driveForward(distance(32));
-            armUp(distance(95));
+            armUp(4040);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.6);

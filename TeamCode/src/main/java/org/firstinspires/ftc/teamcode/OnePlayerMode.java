@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "OnePlayerMode")
@@ -19,6 +20,8 @@ public class OnePlayerMode extends LinearOpMode {
     private DcMotor leftArm = null;
     private Servo clawServo = null;
     //private Servo servo2 = null;
+
+    private Boolean clawClosed = false;
 
     @Override
     public void runOpMode() {
@@ -39,8 +42,10 @@ public class OnePlayerMode extends LinearOpMode {
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //motor6.setDirection(DcMotor.Direction.REVERSE);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         waitForStart();
@@ -62,11 +67,16 @@ public class OnePlayerMode extends LinearOpMode {
 
             //claw movements
             if (gamepad1.a){
-                clawServo.setPosition(.4);// opens claw
-            } else if (gamepad1.b){
-                clawServo.setPosition(0.95); //closes claw
+                clawClosed = false;
+            } else if (gamepad1.b) {
+                clawClosed = true;
             }
 
+            if (clawClosed){
+                clawServo.setPosition(0.85); //closes claw
+            } else if (clawClosed == false) {
+                clawServo.setPosition(0.5);// opens claw
+            }
             //Driving movements
             if (G1rightStickX > 0) {  // Clockwise
                 leftFront.setPower(0.5);
@@ -95,9 +105,9 @@ public class OnePlayerMode extends LinearOpMode {
                 rightRear.setPower(1);
             } else if (gamepad1.dpad_left) { //strafe left
                 leftFront.setPower(-1);
-                rightFront.setPower(.75);
+                rightFront.setPower(1);
                 leftRear.setPower(1);
-                rightRear.setPower(-0.75);//changed from 0.5 to 0.25
+                rightRear.setPower(-1);
             } else if (gamepad1.dpad_up) { // forwards
                 leftFront.setPower(0.5);
                 rightFront.setPower(0.5);
