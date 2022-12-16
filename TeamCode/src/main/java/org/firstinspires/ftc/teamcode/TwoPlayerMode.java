@@ -88,81 +88,39 @@ public class TwoPlayerMode extends LinearOpMode {
             double G1RT = -gamepad1.right_trigger;
             double G1LT = gamepad1.left_trigger;
 
-            boolean speed;
-            speed = false;
-
-            if (gamepad1.a) {
-                speed = false;
-            } else if (gamepad1.b) {
-                speed = true;
-            }
-
             //claw movements
             if (gamepad2.a){
                 clawServo.setPosition(.4);// opens claw
-            } else if (gamepad2.b){
+            } else if (gamepad2.b) {
                 clawServo.setPosition(0.95); //closes claw
-            }
-
-            //Arm movements
-            if (gamepad2.dpad_up) {
-                //armUp(obj.distance(100)); //should go to highest terminal
-                //rightArm.setPower(0.015);
-                //rightArm.setPower(1);
-            } else if (gamepad2.dpad_left) {
-                //armUp(obj.distance(75)); //should go to second highest terminal
-                //rightArm.setPower(0.015);
-                //rightArm.setPower(-1);
-            } else if (gamepad2.dpad_right) {
-                //armUp(obj.distance(42)); //should go to lowest terminal
-                //rightArm.setPower(0.015);
-            } else if (gamepad2.dpad_down) {
-                rightArm.setPower(0);
+            } else if (gamepad2.x) {
+                rightArm.setPower(0); //stops arm
                 leftArm.setPower(0);
             }
+
             telemetry.update();
 
             //Driving movements
-            if (G1rightStickX > 0 && speed == true) {  // Clockwise Fast
+            if (G1rightStickX > 0) {  // Clockwise Slow
                 leftFront.setPower(0.5);
                 leftRear.setPower(0.5);
                 rightFront.setPower(-0.5);
                 rightRear.setPower(-0.5);
-            } else if (G1rightStickX < 0 && speed == true) { //Counterclockwise Fast
+            } else if (G1rightStickX < 0) { // Counterclockwise Slow
                 leftFront.setPower(-0.5);
                 leftRear.setPower(-0.5);
                 rightFront.setPower(0.5);
                 rightRear.setPower(0.5);
-            } else if (G1rightStickX > 0 && speed == false) {  // Clockwise Slow
-                leftFront.setPower(0.5);
-                leftRear.setPower(0.5);
+            } else if (G1leftStickY > 0) { //backwards
+                leftFront.setPower(-0.5);
+                leftRear.setPower(-0.5);
                 rightFront.setPower(-0.5);
                 rightRear.setPower(-0.5);
-            } else if (G1rightStickX < 0 && speed == false) { // Counterclockwise Slow
-                leftFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightFront.setPower(0.5);
-                rightRear.setPower(0.5);
-            } else if (G1leftStickY > 0 && speed == true) { //Driving forward
-                leftFront.setPower(-0.75);
-                leftRear.setPower(-0.75);
-                rightFront.setPower(-0.75);
-                rightRear.setPower(-0.75);
-            } else if (G1leftStickY > 0 && speed == false) {
-                leftFront.setPower(-0.75);
-                leftRear.setPower(-0.75);
-                rightFront.setPower(-0.75);
-                rightRear.setPower(-0.75);
-            } else if (G1leftStickY < 0 && speed == true) {//Driving backward
-                leftFront.setPower(0.75);
-                leftRear.setPower(0.75);
-                rightFront.setPower(0.75);
-                rightRear.setPower(0.75);
-            } else if (G1leftStickY < 0 && speed == false) {
-                leftFront.setPower(.75);
-                leftRear.setPower(.75);
-                rightFront.setPower(.75);
-                rightRear.setPower(.75);
+            } else if (G1leftStickY < 0) { //forwards
+                leftFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(.5);
             } else if (gamepad1.dpad_right) { //strafe right
                 leftFront.setPower(1);
                 rightFront.setPower(-1);
@@ -178,7 +136,6 @@ public class TwoPlayerMode extends LinearOpMode {
                 rightFront.setPower(0.5);
                 leftRear.setPower(0.5);
                 rightRear.setPower(0.5);
-
             } else if (gamepad1.dpad_down) {
                 leftFront.setPower(-0.5);
                 rightFront.setPower(-0.5);
