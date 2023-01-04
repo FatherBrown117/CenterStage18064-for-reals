@@ -37,7 +37,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class BasicDetectionAutoLeft extends LinearOpMode {
+public class LeftAutonomous extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
