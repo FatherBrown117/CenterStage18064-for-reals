@@ -37,7 +37,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class BasicDetectionAutoBlueLeft extends LinearOpMode {
+public class BasicDetectionAutoLeft extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -217,7 +217,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(10));
+            strafeLeft(distance(67));
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
@@ -231,8 +231,8 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
             clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
-            driveBackward(distance(7));
-            strafeLeft(distance(35));
+            driveBackward(distance(5));
+            strafeLeft(distance(42));
         } else { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
@@ -249,7 +249,7 @@ public class BasicDetectionAutoBlueLeft extends LinearOpMode {
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(60));
+            strafeLeft(distance(16));
 
         }
 
