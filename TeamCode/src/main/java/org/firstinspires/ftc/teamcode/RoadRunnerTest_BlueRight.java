@@ -1,13 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name ="BasicAutoInversionTest", group="Linear Opmode")
-public class BasicAutoInversionTest extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
+@Autonomous(name ="RoadRunnerTest_BlueRight", group="Linear Opmode")
+public class RoadRunnerTest_BlueRight extends LinearOpMode {
 
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
@@ -18,6 +22,8 @@ public class BasicAutoInversionTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap); // Declaring the hardware maping for roadrunner
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -36,21 +42,24 @@ public class BasicAutoInversionTest extends LinearOpMode {
 
         clawServo = hardwareMap.get(Servo.class, "clawServo");
 
+        Trajectory miniDriveForwardTraj = drive.trajectoryBuilder(new Pose2d())
+                .forward(2)
+                .strafeLeft(5)
+                .build();
+
         waitForStart();
         while(opModeIsActive()) {
             clawServo.setPosition(.9);
-            sleep(500);
-            armUp(distance(5));
             driveForward(distance(2));
-            strafeRight(distance(41));
+            strafeLeft(distance(37));
             driveForward(distance(30));
             armUp(distance(100));
             clawServo.setPosition(0.6);
             armDown(distance(70));
             driveBackward(distance(7));
-            strafeLeft(distance(10));
+            strafeRight(distance(10));
             sleep(30000);
-            //lol hi
+
         }
 
     }

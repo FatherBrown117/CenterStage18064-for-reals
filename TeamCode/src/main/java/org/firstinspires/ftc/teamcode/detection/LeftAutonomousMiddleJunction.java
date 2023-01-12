@@ -37,14 +37,14 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class RightAutonomous extends LinearOpMode {
+public class LeftAutonomousMiddleJunction extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
-    private DcMotor leftRear = null;
     private DcMotor rightRear = null;
+    private DcMotor leftRear = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
     private Servo clawServo = null;
@@ -79,19 +79,19 @@ public class RightAutonomous extends LinearOpMode {
 
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
-        rightRear = hardwareMap.get(DcMotor.class, "leftRear");
-        leftRear = hardwareMap.get(DcMotor.class, "rightRear");
+        leftRear = hardwareMap.get(DcMotor.class, "leftRear");
+        rightRear = hardwareMap.get(DcMotor.class, "rightRear");
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
         leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -204,51 +204,54 @@ public class RightAutonomous extends LinearOpMode {
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             clawServo.setPosition(.95);
             sleep(500);
+            driveForward(distance(3));
             armUp(distance(12));
-            driveForward(distance(1));
-            strafeLeft(distance(38));
-            driveForward(distance(32));
-            armUp(4033);
+            strafeRight(distance(22));
+            driveForward(distance(26));
+            strafeLeft(distance(10));
+            armUp(2540);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(40));
+            armDown(distance(8));
             driveBackward(distance(7));
-            strafeRight(distance(8));
-            sleep(30000);
+            strafeLeft(distance(40));
+
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
+            driveForward(distance(3));
             armUp(distance(12));
-            driveForward(distance(1));
-            strafeLeft(distance(38));
-            driveForward(distance(32));
-            armUp(4033);
+            strafeRight(distance(22));
+            driveForward(distance(25));
+            strafeLeft(distance(10));
+            armUp(2540);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(40));
-            driveBackward(distance(7));
-            strafeRight(distance(34));
-            sleep(30000);
+            armDown(distance(8));
+            driveBackward(distance(5));
+            strafeLeft(distance(17));
+
         } else { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
+            driveForward(distance(3));
             armUp(distance(12));
-            driveForward(distance(1));
-            strafeLeft(distance(38));
-            driveForward(distance(32));
-            armUp(4033);
+            strafeRight(distance(22));
+            driveForward(distance(25));
+            strafeLeft(distance(10));
+            armUp(2540);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(40));
-            driveBackward(distance(7));
-            strafeRight(distance(60));
-            sleep(30000);
+            armDown(distance(8));
+            driveBackward(distance(5));
+            strafeRight(distance(10));
+
         }
 
 
@@ -287,15 +290,15 @@ public class RightAutonomous extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(0.5);
-        rightRear.setPower(0.5);
         leftRear.setPower(0.5);
+        rightRear.setPower(0.5);
 
         while (rightFront.getCurrentPosition() < (distance - 10)) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -305,8 +308,8 @@ public class RightAutonomous extends LinearOpMode {
         //Slowing down to reduce momentum
         leftFront.setPower(0.1);
         rightFront.setPower(0.1);
-        rightRear.setPower(0.1);
         leftRear.setPower(0.1);
+        rightRear.setPower(0.1);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -315,8 +318,8 @@ public class RightAutonomous extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        rightRear.setPower(0);
         leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -329,15 +332,15 @@ public class RightAutonomous extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(-0.5);
-        rightRear.setPower(-0.5);
         leftRear.setPower(-0.5);
+        rightRear.setPower(-0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -346,8 +349,8 @@ public class RightAutonomous extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        rightRear.setPower(0);
         leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -360,15 +363,15 @@ public class RightAutonomous extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(-0.5);
-        rightRear.setPower(-0.5);
-        leftRear.setPower(0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -377,8 +380,8 @@ public class RightAutonomous extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        rightRear.setPower(0);
         leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -391,15 +394,15 @@ public class RightAutonomous extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(0.5);
-        rightRear.setPower(0.5);
-        leftRear.setPower(-0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(-0.5);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -408,8 +411,8 @@ public class RightAutonomous extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        rightRear.setPower(0);
         leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
