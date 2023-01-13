@@ -37,7 +37,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class LeftAutonomousHighJunction extends LinearOpMode {
+public class RightAutonomousHighJunction extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -206,51 +206,46 @@ public class LeftAutonomousHighJunction extends LinearOpMode {
             sleep(500);
             armUp(distance(12));
             driveForward(distance(1));
-            //strafeLeft(distance(22)); // add these two lines and comment out
-            //driveForward(distance(22)); // everything below to just park
-            strafeRight(distance(41));
-            driveForward(distance(30));
-            armUp(4040);
+            strafeLeft(distance(39));
+            driveForward(distance(32));
+            armUp(4033);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(67));
+            strafeRight(distance(8));
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
             armUp(distance(12));
-            driveForward(distance(1)); //change to 22 to make just park
-            strafeRight(distance(41));
-            driveForward(distance(30));
-            armUp(4040);
-            driveForward(distance(4));
-            armDown(distance(30));
-            clawServo.setPosition(0.4);
-            sleep(500);
-            armDown(distance(40));
-            driveBackward(distance(5));
-            strafeLeft(distance(42));
-        } else { //trajectory
-            clawServo.setPosition(.95);
-            sleep(500);
-            armUp(distance(12));
             driveForward(distance(1));
-            //strafeRight(distance(26));
-            //driveForward(distance(22));     *note: for just parking
-            strafeRight(distance(41));
-            driveForward(distance(30));
-            armUp(4040);
+            strafeLeft(distance(39));
+            driveForward(distance(32));
+            armUp(4033);
             driveForward(distance(2));
             armDown(distance(30));
             clawServo.setPosition(0.4);
             sleep(500);
             armDown(distance(40));
             driveBackward(distance(7));
-            strafeLeft(distance(16));
-
+            strafeRight(distance(34));
+        } else {
+            clawServo.setPosition(.95);
+            sleep(500);
+            armUp(distance(12));
+            driveForward(distance(1));
+            strafeLeft(distance(39));
+            driveForward(distance(32));
+            armUp(4033);
+            driveForward(distance(2));
+            armDown(distance(30));
+            clawServo.setPosition(0.4);
+            sleep(500);
+            armDown(distance(40));
+            driveBackward(distance(7));
+            strafeRight(distance(60));
         }
 
 
