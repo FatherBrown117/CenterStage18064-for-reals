@@ -205,16 +205,16 @@ public class LeftAutonomousMiddleJunction extends LinearOpMode {
             clawServo.setPosition(.95);
             sleep(500);
             driveForward(distance(3));
-            armUp(distance(12));
+            //armUp(distance(12));
             strafeRight(distance(22));
             driveForward(distance(26));
             strafeLeft(distance(10));
-            armUp(2540);
+            //armUp(2540);
             driveForward(distance(2));
-            armDown(distance(30));
-            clawServo.setPosition(0.4);
+            //armDown(distance(30));
+            //clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(8));
+            //armDown(distance(8));
             driveBackward(distance(7));
             strafeLeft(distance(40));
 
@@ -222,16 +222,16 @@ public class LeftAutonomousMiddleJunction extends LinearOpMode {
             clawServo.setPosition(.95);
             sleep(500);
             driveForward(distance(3));
-            armUp(distance(12));
+            //armUp(distance(12));
             strafeRight(distance(22));
             driveForward(distance(25));
             strafeLeft(distance(10));
-            armUp(2540);
+            //armUp(2540);
             driveForward(distance(2));
-            armDown(distance(30));
-            clawServo.setPosition(0.4);
+            //armDown(distance(30));
+            //clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(8));
+            //armDown(distance(8));
             driveBackward(distance(5));
             strafeLeft(distance(17));
 
@@ -239,16 +239,16 @@ public class LeftAutonomousMiddleJunction extends LinearOpMode {
             clawServo.setPosition(.95);
             sleep(500);
             driveForward(distance(3));
-            armUp(distance(12));
+            //armUp(distance(12));
             strafeRight(distance(22));
             driveForward(distance(25));
             strafeLeft(distance(10));
-            armUp(2540);
+            //armUp(2540);
             driveForward(distance(2));
-            armDown(distance(30));
-            clawServo.setPosition(0.4);
+            //armDown(distance(30));
+            //clawServo.setPosition(0.4);
             sleep(500);
-            armDown(distance(8));
+            //armDown(distance(8));
             driveBackward(distance(5));
             strafeRight(distance(10));
 

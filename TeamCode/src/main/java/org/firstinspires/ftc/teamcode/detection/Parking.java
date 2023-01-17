@@ -37,7 +37,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class RightAutonomousMiddleJunction extends LinearOpMode {
+public class Parking extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -202,56 +202,23 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-
-            clawServo.setPosition(.95);
             sleep(500);
-            driveForward(distance(3));
-            //armUp(distance(12));
+            driveForward(distance(2));
             strafeLeft(distance(27));
-            driveForward(distance(27));
-            strafeRight(distance(15));
-            //armUp(2540);l
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
+            driveForward(distance(25));
             sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeRight(distance(38));
-
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            clawServo.setPosition(.95);
             sleep(500);
             driveForward(distance(3));
-            //armUp(distance(12));
-            strafeLeft(distance(28));
-            driveForward(distance(26));
-            strafeRight(distance(16));
-            //armUp(2540);
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
-            sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeRight(distance(10));
+            strafeLeft(distance(1));
+            driveForward(distance(25));
 
         } else { //trajectory
-            clawServo.setPosition(.95);
             sleep(500);
-            driveForward(distance(3));
-            //armUp(distance(12));
-            strafeLeft(distance(27));
-            driveForward(distance(27));
-            strafeRight(distance(16));
-            //armUp(2540);
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
-            sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeLeft(distance(5));
+            driveForward(distance(2));
+            strafeRight(distance(26));
+            driveForward(distance(25));
+
 
         }
 
