@@ -109,19 +109,23 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
         camera.setPipeline(aprilTagDetectionPipeline);
 
-        // RoadRunner Hardware Mapping
+        // RoadRunner Hardware Mapping and Trajectories
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Vector2d testVector = new Vector2d(10, -5);
 
         Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(35)
+                .strafeRight(40)
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(34)
+                .forward(29)
                 .build();
+        Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
+                .strafeRight(16)
+                .build();
+
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
@@ -231,8 +235,22 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
 
         } else { //trajectory
+            clawServo.setPosition(.95);
+            armUp(distance(2));
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
+            armUp(distance(6));
+            armUp(4040);
+            driveForward(distance(2));
+            clawServo.setPosition(0);
+            /*
+            driveBackward(distance(5));
+            armDown(distance(40));
+            drive.followTrajectory(final_Trajectory);
+             */
+
+
+
 
         }
 
