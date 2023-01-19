@@ -204,12 +204,14 @@ public class Parking extends LinearOpMode {
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
 
             sleep(500);
+            armUp(distance(2));
             driveForward(distance(2));
             strafeLeft(distance(27));
             driveForward(distance(25));
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             clawServo.setPosition(.95);
             sleep(500);
+            armUp(distance(2));
             driveForward(distance(3));
             strafeLeft(distance(1));
             driveForward(distance(25));
@@ -217,6 +219,7 @@ public class Parking extends LinearOpMode {
 
             sleep(500);
             driveForward(distance(2));
+            armUp(distance(2));
             strafeRight(distance(26));
             driveForward(distance(25));
         }

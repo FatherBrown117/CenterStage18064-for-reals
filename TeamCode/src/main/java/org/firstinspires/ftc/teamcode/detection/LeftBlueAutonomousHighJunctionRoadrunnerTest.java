@@ -239,8 +239,8 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             armUp(distance(2));
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
-            armUp(distance(6));
             armUp(4040);
+            sleep(500);
             driveForward(distance(2));
             clawServo.setPosition(0);
             /*
