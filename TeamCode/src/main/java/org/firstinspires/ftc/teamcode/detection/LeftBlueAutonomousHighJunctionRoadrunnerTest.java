@@ -120,10 +120,11 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(29)
+                .forward(30)
                 .build();
+
         Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
-                .strafeRight(16)
+                .strafeLeft(16)
                 .build();
 
 
@@ -236,21 +237,24 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
         } else { //trajectory
             clawServo.setPosition(.95);
-            armUp(distance(2));
+            sleep(250);
+            armUp(distance(5));
+            sleep(25);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
-            sleep(500);
-            driveForward(distance(2));
+            sleep(100);
+            driveForwardPower(distance(5), 0.1);
+            sleep(100);
             clawServo.setPosition(0);
-            /*
+            sleep(200);
+            //driveBackwardPower(distance(5), 0.1);
+            //sleep(100);
+            armDown(distance(60));
             driveBackward(distance(5));
-            armDown(distance(40));
-            drive.followTrajectory(final_Trajectory);
-             */
-
-
-
+            strafeLeft(distance(16));
+            sleep(600);
+            //drive.followTrajectory(final_Trajectory);
 
         }
 
@@ -464,4 +468,72 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
     }
 
+    public void driveForwardPower(double distance, double speed) {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightRear.setPower(speed);
+
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        leftFront.setPower(0.1);
+        rightFront.setPower(0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(0.1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+    }
+    public void driveBackwardPower(double distance, double speed) { // Positive Speed in Reverse
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightRear.setPower(speed);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
 }
