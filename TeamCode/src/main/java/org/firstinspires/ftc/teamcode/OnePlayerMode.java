@@ -109,21 +109,21 @@ public class OnePlayerMode extends LinearOpMode {
                 leftRear.setPower(1);
                 rightRear.setPower(-1);
             } else if (gamepad1.dpad_up) { // forwards
-                leftFront.setPower(0.5);
-                rightFront.setPower(0.5);
-                leftRear.setPower(0.5);
-                rightRear.setPower(0.5);
+                leftFront.setPower(0.75);
+                rightFront.setPower(0.75);
+                leftRear.setPower(0.75);
+                rightRear.setPower(0.75);
             } else if (gamepad1.dpad_down) { // backwards
-                leftFront.setPower(-0.5);
-                rightFront.setPower(-0.5);
-                leftRear.setPower(-0.5);
-                rightRear.setPower(-0.5);
+                leftFront.setPower(-0.75);
+                rightFront.setPower(-0.75);
+                leftRear.setPower(-0.75);
+                rightRear.setPower(-0.75);
             } else if (G1rightBumper) { // arm up
-                rightArm.setPower(0.5);
-                leftArm.setPower(0.5);
+                rightArm.setPower(0.75);
+                leftArm.setPower(0.75);
             } else if (G1leftBumper) { // arm down
-                rightArm.setPower(-0.3);
-                leftArm.setPower(-0.3);
+                rightArm.setPower(-0.45);
+                leftArm.setPower(-0.45);
             } else if (gamepad1.x) { // arm power off
                 rightArm.setPower(0);
                 leftArm.setPower(0);

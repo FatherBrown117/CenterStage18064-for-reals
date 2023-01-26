@@ -21,6 +21,9 @@
 
 package org.firstinspires.ftc.teamcode.detection;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -29,6 +32,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.BasicAuto;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -37,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class Parking extends LinearOpMode {
+public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -77,6 +81,8 @@ public class Parking extends LinearOpMode {
     public void runOpMode()
     {
 
+
+
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
@@ -102,6 +108,26 @@ public class Parking extends LinearOpMode {
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
+
+        // RoadRunner Hardware Mapping and Trajectories
+
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        Vector2d testVector = new Vector2d(10, -5);
+
+        Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(40)
+                .build();
+
+        Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
+                .forward(30)
+                .build();
+
+        Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
+                .strafeLeft(16)
+                .build();
+
+
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -202,47 +228,34 @@ public class Parking extends LinearOpMode {
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-<<<<<<< HEAD
-            sleep(500);
-            driveForward(distance(2));
-            strafeLeft(distance(27));
-            driveForward(distance(25));
-            sleep(500);
+            sleep(5);
+
+
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            sleep(500);
-            driveForward(distance(3));
-            strafeLeft(distance(1));
-            driveForward(distance(25));
+            sleep(5);
+
 
         } else { //trajectory
-            sleep(500);
-            driveForward(distance(2));
-            strafeRight(distance(26));
-            driveForward(distance(25));
-
-
-=======
-
-            sleep(500);
-            armUp(distance(2));
-            driveForward(distance(2));
-            strafeLeft(distance(27));
-            driveForward(distance(25));
-        } else if (tagOfInterest.id == MIDDLE) { //trajectory
             clawServo.setPosition(.95);
-            sleep(500);
-            armUp(distance(2));
-            driveForward(distance(3));
-            strafeLeft(distance(1));
-            driveForward(distance(25));
-        } else { //trajectory
+            sleep(250);
+            armUp(distance(5));
+            sleep(25);
+            drive.followTrajectory(first_Trajectory);
+            drive.followTrajectory(second_Trajectory);
+            armUp(4040);
+            sleep(100);
+            driveForwardPower(distance(5), 0.1);
+            sleep(100);
+            clawServo.setPosition(0);
+            sleep(200);
+            //driveBackwardPower(distance(5), 0.1);
+            //sleep(100);
+            armDown(distance(60));
+            driveBackward(distance(5));
+            strafeLeft(distance(16));
+            sleep(600);
+            //drive.followTrajectory(final_Trajectory);
 
-            sleep(500);
-            driveForward(distance(2));
-            armUp(distance(2));
-            strafeRight(distance(26));
-            driveForward(distance(25));
->>>>>>> origin/master
         }
 
 
@@ -455,4 +468,72 @@ public class Parking extends LinearOpMode {
 
     }
 
+    public void driveForwardPower(double distance, double speed) {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightRear.setPower(speed);
+
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        leftFront.setPower(0.1);
+        rightFront.setPower(0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(0.1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+    }
+    public void driveBackwardPower(double distance, double speed) { // Positive Speed in Reverse
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightRear.setPower(speed);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
 }
