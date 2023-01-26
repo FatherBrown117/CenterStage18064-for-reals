@@ -229,10 +229,50 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             sleep(5);
+            sleep(5);
+            clawServo.setPosition(.95);
+            sleep(250);
+            armUp(distance(5));
+            sleep(25);
+            drive.followTrajectory(first_Trajectory);
+            drive.followTrajectory(second_Trajectory);
+            armUp(4040);
+            sleep(100);
+            driveForwardPower(distance(5), 0.1);
+            sleep(100);
+            clawServo.setPosition(0);
+            sleep(200);
+            //driveBackwardPower(distance(5), 0.1);
+            //sleep(100);
+            armDown(distance(60));
+            driveBackward(distance(5));
+            strafeLeft(distance(35));
+            sleep(600);
+            //drive.followTrajectory(final_Trajectory);
+
 
 
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             sleep(5);
+            clawServo.setPosition(.95);
+            sleep(250);
+            armUp(distance(5));
+            sleep(25);
+            drive.followTrajectory(first_Trajectory);
+            drive.followTrajectory(second_Trajectory);
+            armUp(4040);
+            sleep(100);
+            driveForwardPower(distance(5), 0.1);
+            sleep(100);
+            clawServo.setPosition(0);
+            sleep(200);
+            //driveBackwardPower(distance(5), 0.1);
+            //sleep(100);
+            armDown(distance(60));
+            driveBackward(distance(5));
+            strafeLeft(distance(25));
+            sleep(600);
+            //drive.followTrajectory(final_Trajectory);
 
 
         } else { //trajectory
