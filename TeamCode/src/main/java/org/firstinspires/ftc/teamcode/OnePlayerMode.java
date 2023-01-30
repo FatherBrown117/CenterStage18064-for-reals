@@ -18,10 +18,10 @@ public class OnePlayerMode extends LinearOpMode {
     private DcMotor rightRear = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
-    private Servo clawServo = null;
-    //private Servo servo2 = null;
+    private Servo rightClaw = null;
+    private Servo leftClaw = null;
 
-    private Boolean clawClosed = false;
+    private Boolean clawClosed = true;
 
     @Override
     public void runOpMode() {
@@ -36,7 +36,8 @@ public class OnePlayerMode extends LinearOpMode {
         rightArm = hardwareMap.get(DcMotor.class, "rightArm");
         leftArm = hardwareMap.get(DcMotor.class, "leftArm");
 
-        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        rightClaw = hardwareMap.get(Servo.class, "rightClaw");
+        leftClaw = hardwareMap.get(Servo.class, "leftClaw");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
@@ -73,9 +74,11 @@ public class OnePlayerMode extends LinearOpMode {
             }
 
             if (clawClosed){
-                clawServo.setPosition(0.95); //closes claw
+                rightClaw.setPosition(0.55); //closes claw
+                leftClaw.setPosition(0.75); //line needs to be tested
             } else if (clawClosed == false) {
-                clawServo.setPosition(0.4);// opens claw
+                rightClaw.setPosition(0.95);// opens claw
+                leftClaw.setPosition(0.25); // line needs to be tested
             }
             //Driving movements
             if (G1rightStickX > 0) {  // Clockwise

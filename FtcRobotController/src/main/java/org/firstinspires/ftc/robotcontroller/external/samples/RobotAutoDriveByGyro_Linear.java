@@ -68,7 +68,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  *  All angles are referenced to the coordinate-frame that is set whenever resetHeading() is called.
  *  In this sample, the heading is reset when the Start button is touched on the Driver station.
  *  Note: It would be possible to reset the heading after each move, but this would accumulate steering errors.
- *
  *  The angle of movement/rotation is assumed to be a standardized rotation around the robot Z axis,
  *  which means that a Positive rotation is Counter Clockwise, looking down on the field.
  *  This is consistent with the FTC field coordinate conventions set out in the document:
