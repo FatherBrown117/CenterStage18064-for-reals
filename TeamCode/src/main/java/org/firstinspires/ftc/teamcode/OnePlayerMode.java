@@ -74,11 +74,11 @@ public class OnePlayerMode extends LinearOpMode {
             }
 
             if (clawClosed){
-                rightClaw.setPosition(0.55); //closes claw
-                leftClaw.setPosition(0.75); //line needs to be tested
+                rightClaw.setPosition(0.35); //closes claw
+                leftClaw.setPosition(0.67);
             } else if (clawClosed == false) {
-                rightClaw.setPosition(0.95);// opens claw
-                leftClaw.setPosition(0.25); // line needs to be tested
+                rightClaw.setPosition(0.1);// opens claw
+                leftClaw.setPosition(0.92);
             }
             //Driving movements
             if (G1rightStickX > 0) {  // Clockwise

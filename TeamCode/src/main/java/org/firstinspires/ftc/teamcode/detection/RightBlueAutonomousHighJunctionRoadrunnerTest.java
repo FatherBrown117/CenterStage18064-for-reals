@@ -51,7 +51,8 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
     private DcMotor leftRear = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
-    private Servo clawServo = null;
+    private Servo rightClaw = null;
+    private Servo leftClaw = null;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -101,7 +102,8 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        rightClaw = hardwareMap.get(Servo.class, "rightClaw");
+        leftClaw = hardwareMap.get(Servo.class, "leftClaw");
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -230,7 +232,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             sleep(5);
             sleep(5);
-            clawServo.setPosition(.95);
+            servoClose();
             sleep(250);
             armUp(distance(5));
             sleep(25);
@@ -240,7 +242,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
             sleep(100);
             driveForwardPower(distance(5), 0.1);
             sleep(100);
-            clawServo.setPosition(0);
+            servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
@@ -254,7 +256,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
 
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
             sleep(5);
-            clawServo.setPosition(.95);
+            servoClose();
             sleep(250);
             armUp(distance(5));
             sleep(25);
@@ -264,7 +266,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
             sleep(100);
             driveForwardPower(distance(5), 0.1);
             sleep(100);
-            clawServo.setPosition(0);
+            servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
@@ -276,7 +278,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
 
 
         } else { //trajectory
-            clawServo.setPosition(.95);
+            servoClose();
             sleep(250);
             armUp(distance(5));
             sleep(25);
@@ -286,7 +288,7 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
             sleep(100);
             driveForwardPower(distance(5), 0.1);
             sleep(100);
-            clawServo.setPosition(0);
+            servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
@@ -320,11 +322,13 @@ public class RightBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode 
     }
 
     public void servoOpen() {
-        clawServo.setPosition(.5);
+        rightClaw.setPosition(0.1);// opens claw
+        leftClaw.setPosition(0.92);
     }
 
     public void servoClose() {
-        clawServo.setPosition(0);
+        rightClaw.setPosition(0.35); //closes claw
+        leftClaw.setPosition(0.67);
     }
 
     public void driveForward(double distance) {
