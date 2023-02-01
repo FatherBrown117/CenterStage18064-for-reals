@@ -78,7 +78,7 @@ public class OnePlayerMode extends LinearOpMode {
                 leftClaw.setPosition(0.67);
             } else if (clawClosed == false) {
                 rightClaw.setPosition(0.1);// opens claw
-                leftClaw.setPosition(0.92);
+                leftClaw.setPosition(0.88);
             }
             //Driving movements
             if (G1rightStickX > 0) {  // Clockwise
@@ -112,15 +112,15 @@ public class OnePlayerMode extends LinearOpMode {
                 leftRear.setPower(1);
                 rightRear.setPower(-1);
             } else if (gamepad1.dpad_up) { // forwards
-                leftFront.setPower(0.75);
-                rightFront.setPower(0.75);
-                leftRear.setPower(0.75);
-                rightRear.setPower(0.75);
+                leftFront.setPower(0.65);
+                rightFront.setPower(0.65);
+                leftRear.setPower(0.65);
+                rightRear.setPower(0.65);
             } else if (gamepad1.dpad_down) { // backwards
-                leftFront.setPower(-0.75);
-                rightFront.setPower(-0.75);
-                leftRear.setPower(-0.75);
-                rightRear.setPower(-0.75);
+                leftFront.setPower(-0.65);
+                rightFront.setPower(-0.65);
+                leftRear.setPower(-0.65);
+                rightRear.setPower(-0.65);
             } else if (G1rightBumper) { // arm up
                 rightArm.setPower(0.75);
                 leftArm.setPower(0.75);
