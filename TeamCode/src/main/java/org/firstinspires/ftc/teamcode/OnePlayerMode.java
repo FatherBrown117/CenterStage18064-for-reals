@@ -74,8 +74,8 @@ public class OnePlayerMode extends LinearOpMode {
             }
 
             if (clawClosed){
-                rightClaw.setPosition(0.35); //closes claw
-                leftClaw.setPosition(0.67);
+                rightClaw.setPosition(0.45); //closes claw
+                leftClaw.setPosition(0.57);
             } else if (clawClosed == false) {
                 rightClaw.setPosition(0.1);// opens claw
                 leftClaw.setPosition(0.88);
