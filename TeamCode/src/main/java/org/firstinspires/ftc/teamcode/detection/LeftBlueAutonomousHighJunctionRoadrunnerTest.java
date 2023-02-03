@@ -118,15 +118,15 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         Vector2d testVector = new Vector2d(10, -5);
 
         Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(40)
+                .strafeRight(39)
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(30)
+                .forward(29)
                 .build();
 
         Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
-                .strafeLeft(16)
+                .strafeLeft(8)
                 .build();
 
 
@@ -231,7 +231,6 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             sleep(5);
-            sleep(5);
             servoClose();
             sleep(250);
             armUp(distance(5));
@@ -240,15 +239,15 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(5), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
-            armDown(distance(60));
+            armDown(distance(50));
             driveBackward(distance(5));
-            strafeLeft(distance(35));
+            strafeLeft(distance(13));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
@@ -264,20 +263,21 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(5), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
-            armDown(distance(60));
-            driveBackward(distance(5));
-            strafeLeft(distance(25));
+            armDown(distance(50));
+            driveBackward(distance(4));
+            strafeLeft(distance(40));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
 
         } else { //trajectory
+            sleep(5);
             servoClose();
             sleep(250);
             armUp(distance(5));
@@ -286,18 +286,16 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(5), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
             //driveBackwardPower(distance(5), 0.1);
             //sleep(100);
-            armDown(distance(60));
+            armDown(distance(50));
             driveBackward(distance(5));
-            strafeLeft(distance(16));
+            strafeLeft(distance(50));
             sleep(600);
-            //drive.followTrajectory(final_Trajectory);
-
         }
 
 
@@ -566,6 +564,17 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         rightFront.setPower(speed);
         leftRear.setPower(speed);
         rightRear.setPower(speed);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
