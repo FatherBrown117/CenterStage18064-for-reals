@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
+public class RightAutonomous extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -118,15 +118,15 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         Vector2d testVector = new Vector2d(10, -5);
 
         Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(39)
+                .strafeLeft(44)
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(29)
+                .forward(28)
                 .build();
 
         Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
-                .strafeLeft(8)
+                .strafeLeft(16)
                 .build();
 
 
@@ -239,15 +239,14 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(3), 0.1);
+            driveForwardPower(distance(4), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
-            //driveBackwardPower(distance(5), 0.1);
-            //sleep(100);
-            armDown(distance(50));
-            driveBackward(distance(5));
-            strafeLeft(distance(13));
+            driveBackwardPower(distance(7), 0.1);
+            sleep(100);
+            armDown(distance(60));
+            strafeRight(distance(16));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
@@ -263,21 +262,19 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(3), 0.1);
+            driveForwardPower(distance(4), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
-            //driveBackwardPower(distance(5), 0.1);
-            //sleep(100);
-            armDown(distance(50));
-            driveBackward(distance(4));
-            strafeLeft(distance(40));
+            driveBackwardPower(distance(7), 0.1);
+            sleep(100);
+            armDown(distance(60));
+            strafeRight(distance(42));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
 
         } else { //trajectory
-            sleep(5);
             servoClose();
             sleep(250);
             armUp(distance(5));
@@ -286,16 +283,18 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(3), 0.1);
+            driveForwardPower(distance(4), 0.1);
             sleep(100);
             servoOpen();
             sleep(200);
-            //driveBackwardPower(distance(5), 0.1);
-            //sleep(100);
-            armDown(distance(50));
-            driveBackward(distance(5));
-            strafeLeft(distance(50));
+            driveBackwardPower(distance(7), 0.1);
+            sleep(100);
+            armDown(distance(60));
+            sleep(50);
+            strafeRight(distance(70));
             sleep(600);
+            //drive.followTrajectory(final_Trajectory);
+
         }
 
 
@@ -321,13 +320,14 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
 
     public void servoOpen() {
         rightClaw.setPosition(0.1);// opens claw
-        leftClaw.setPosition(0.92);
+        leftClaw.setPosition(0.88);
     }
 
     public void servoClose() {
-        rightClaw.setPosition(0.35); //closes claw
-        leftClaw.setPosition(0.67);
+        rightClaw.setPosition(0.45); //closes claw
+        leftClaw.setPosition(0.57);
     }
+
 
     public void driveForward(double distance) {
 
@@ -560,21 +560,10 @@ public class LeftBlueAutonomousHighJunctionRoadrunnerTest extends LinearOpMode {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        leftFront.setPower(speed);
-        rightFront.setPower(speed);
-        leftRear.setPower(speed);
-        rightRear.setPower(speed);
-
-        while (-rightFront.getCurrentPosition() < distance) {
-            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
-            telemetry.update();
-        }
-
-        leftFront.setPower(0);
-        rightFront.setPower(0);
-        leftRear.setPower(0);
-        rightRear.setPower(0);
-
+        leftFront.setPower(-speed);
+        rightFront.setPower(-speed);
+        leftRear.setPower(-speed);
+        rightRear.setPower(-speed);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
