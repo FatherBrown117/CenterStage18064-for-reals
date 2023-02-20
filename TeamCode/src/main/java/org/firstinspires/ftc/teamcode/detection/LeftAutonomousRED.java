@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class RightAutonomous extends LinearOpMode {
+public class LeftAutonomousRED extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -118,15 +118,15 @@ public class RightAutonomous extends LinearOpMode {
         Vector2d testVector = new Vector2d(10, -5);
 
         Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
-                .strafeLeft(44)
+                .strafeRight(38)
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(28)
+                .forward(24)
                 .build();
 
         Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
-                .strafeLeft(16)
+                .strafeLeft(8)
                 .build();
 
 
@@ -233,20 +233,24 @@ public class RightAutonomous extends LinearOpMode {
             sleep(5);
             servoClose();
             sleep(250);
-            armUp(distance(5));
-            sleep(25);
+            armUp(distance(7));
+            sleep(100);
+            driveForwardPower(distance(3),0.1);
+            sleep(100);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(4), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
             driveBackwardPower(distance(7), 0.1);
             sleep(100);
-            armDown(distance(60));
-            strafeRight(distance(16));
+            armDown(distance(65));
+            sleep(50);
+            strafeLeft(distance(65));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
@@ -256,45 +260,51 @@ public class RightAutonomous extends LinearOpMode {
             sleep(5);
             servoClose();
             sleep(250);
-            armUp(distance(5));
+            armUp(distance(7));
+            sleep(100);
+            driveForwardPower(distance(3),0.1);
             sleep(25);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(4), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
             driveBackwardPower(distance(7), 0.1);
             sleep(100);
-            armDown(distance(60));
-            strafeRight(distance(42));
+            armDown(distance(65));
+            sleep(50);
+            strafeLeft(distance(40));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
 
         } else { //trajectory
+            sleep(5);
             servoClose();
             sleep(250);
-            armUp(distance(5));
+            armUp(distance(7));
+            sleep(100);
+            driveForwardPower(distance(3),0.1);
             sleep(25);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(4), 0.1);
+            driveForwardPower(distance(3), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
-            driveBackwardPower(distance(7), 0.1);
-            sleep(100);
-            armDown(distance(60));
+            driveBackwardPower(distance(5), 0.1);
+            //sleep(100);
+            armDown(distance(65));
             sleep(50);
-            strafeRight(distance(70));
+            strafeLeft(distance(13));
             sleep(600);
-            //drive.followTrajectory(final_Trajectory);
-
         }
 
 
@@ -319,15 +329,14 @@ public class RightAutonomous extends LinearOpMode {
     }
 
     public void servoOpen() {
-        rightClaw.setPosition(0.1);// opens claw
-        leftClaw.setPosition(0.88);
+        rightClaw.setPosition(0.13);// opens claw
+        leftClaw.setPosition(0.83);
     }
 
     public void servoClose() {
         rightClaw.setPosition(0.45); //closes claw
-        leftClaw.setPosition(0.57);
+        leftClaw.setPosition(0.52);
     }
-
 
     public void driveForward(double distance) {
 
@@ -564,6 +573,17 @@ public class RightAutonomous extends LinearOpMode {
         rightFront.setPower(-speed);
         leftRear.setPower(-speed);
         rightRear.setPower(-speed);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());

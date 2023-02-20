@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class LeftAutonomous extends LinearOpMode {
+public class LeftAutonomousBLUE extends LinearOpMode {
 
     BasicAuto obj = new BasicAuto();
 
@@ -122,7 +122,7 @@ public class LeftAutonomous extends LinearOpMode {
                 .build();
 
         Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
-                .forward(30)
+                .forward(24)
                 .build();
 
         Trajectory final_Trajectory = drive.trajectoryBuilder(second_Trajectory.end())
@@ -234,20 +234,23 @@ public class LeftAutonomous extends LinearOpMode {
             servoClose();
             sleep(250);
             armUp(distance(7));
-            sleep(25);
+            sleep(100);
+            driveForwardPower(distance(3),0.1);
+            sleep(100);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(3), 0.1);
+            driveForwardPower(distance(4), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
-            driveBackwardPower(distance(7), 0.1);
+            driveBackwardPower(distance(8), 0.1);
             sleep(100);
-            armDown(distance(50));
+            armDown(distance(65));
             sleep(50);
-            strafeLeft(distance(70));
+            strafeLeft(distance(68));
             sleep(600);
             //drive.followTrajectory(final_Trajectory);
 
@@ -258,18 +261,21 @@ public class LeftAutonomous extends LinearOpMode {
             servoClose();
             sleep(250);
             armUp(distance(7));
+            sleep(100);
+            driveForwardPower(distance(4),0.1);
             sleep(25);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
             armUp(4040);
             sleep(100);
-            driveForwardPower(distance(3), 0.1);
+            driveForwardPower(distance(4), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
-            driveBackwardPower(distance(7), 0.1);
+            driveBackwardPower(distance(8), 0.1);
             sleep(100);
-            armDown(distance(50));
+            armDown(distance(65));
             sleep(50);
             strafeLeft(distance(40));
             sleep(600);
@@ -281,6 +287,8 @@ public class LeftAutonomous extends LinearOpMode {
             servoClose();
             sleep(250);
             armUp(distance(7));
+            sleep(100);
+            driveForwardPower(distance(4),0.1);
             sleep(25);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
@@ -288,11 +296,12 @@ public class LeftAutonomous extends LinearOpMode {
             sleep(100);
             driveForwardPower(distance(3), 0.1);
             sleep(100);
+            armDown(300);
             servoOpen();
             sleep(200);
             driveBackwardPower(distance(5), 0.1);
             //sleep(100);
-            armDown(distance(50));
+            armDown(distance(65));
             sleep(50);
             strafeLeft(distance(13));
             sleep(600);
@@ -320,13 +329,13 @@ public class LeftAutonomous extends LinearOpMode {
     }
 
     public void servoOpen() {
-        rightClaw.setPosition(0.1);// opens claw
-        leftClaw.setPosition(0.88);
+        rightClaw.setPosition(0.13);// opens claw
+        leftClaw.setPosition(0.83);
     }
 
     public void servoClose() {
         rightClaw.setPosition(0.45); //closes claw
-        leftClaw.setPosition(0.57);
+        leftClaw.setPosition(0.52);
     }
 
     public void driveForward(double distance) {
