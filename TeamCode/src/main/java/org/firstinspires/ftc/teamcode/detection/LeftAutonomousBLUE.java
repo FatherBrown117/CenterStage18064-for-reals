@@ -239,7 +239,7 @@ public class LeftAutonomousBLUE extends LinearOpMode {
             sleep(100);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
-            armUp(4040);
+            armUp(4200);
             sleep(100);
             driveForwardPower(distance(4), 0.1);
             sleep(100);

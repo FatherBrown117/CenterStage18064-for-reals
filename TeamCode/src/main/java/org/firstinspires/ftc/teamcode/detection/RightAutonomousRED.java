@@ -233,13 +233,13 @@ public class RightAutonomousRED extends LinearOpMode {
             sleep(5);
             servoClose();
             sleep(250);
-            armUp(distance(5));
+            armUp(distance(8));
             sleep(25);
             driveForwardPower(distance(3),0.1);
             sleep(50);
             drive.followTrajectory(first_Trajectory);
             drive.followTrajectory(second_Trajectory);
-            armUp(4040);
+            armUp(4200);
             sleep(100);
             driveForwardPower(distance(5), 0.1);
             sleep(100);

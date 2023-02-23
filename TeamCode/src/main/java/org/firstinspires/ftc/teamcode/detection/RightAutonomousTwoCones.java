@@ -45,6 +45,7 @@ import java.util.ArrayList;
 @Autonomous
 public class RightAutonomousTwoCones extends LinearOpMode {
 
+
     BasicAuto obj = new BasicAuto();
 
     private DcMotor leftFront = null;
@@ -61,8 +62,8 @@ public class RightAutonomousTwoCones extends LinearOpMode {
     private final Pose2d home = new Pose2d(-42,68,90.0);
 
     // Roadrunner Trajectory Variables
-    private TrajectorySequence ForwardBeginning;
-    private TrajectorySequence LeftToHighJunction;
+    private TrajectorySequence turn90;
+    private TrajectorySequence FaceStraight;
     private TrajectorySequence ForwardToHighJunction;
     //private TrajectorySequence ;
 
@@ -134,37 +135,73 @@ public class RightAutonomousTwoCones extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Vector2d startingVector = new Vector2d(-32, 68);
+        Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180)); // Breaks Code
 
-        Trajectory first_Trajectory = drive.trajectoryBuilder(new Pose2d())
+        Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
+                .forward(4)
+                .build();
+
+        Trajectory trajLeftToFirstJunction = drive.trajectoryBuilder(trajStart.end())
                 .strafeLeft(43)
                 .build();
 
-        Trajectory second_Trajectory = drive.trajectoryBuilder(first_Trajectory.end())
+        Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
+                .forward(27)
+                .build();
+
+        Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
+                .forward(6)
+                .build();
+
+        Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
+                .back(6)
+                .build();
+
+        Trajectory trajRightToConeStack = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
+                .strafeRight(42)
+                .build();
+
+        turn90 = drive.trajectorySequenceBuilder( trajRightToConeStack.end())
+                .turn(Math.toRadians(-90))
+                .build();
+
+        Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
+                .strafeLeft(24)
+                .build();
+
+        Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
                 .forward(26)
                 .build();
 
-        Trajectory third_Trajectory = drive.trajectoryBuilder(second_Trajectory.end()) // 0 20 before
-                .strafeRight(16)
+        Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
+                .back(37)
                 .build();
 
-        Pose2d FaceStraight = new Pose2d(-54, -36, Math.toRadians(0));
-        Pose2d FaceRightClockwise = new Pose2d(-54, -36, Math.toRadians(-90));
-
-
-        Trajectory strafeRightToCones = drive.trajectoryBuilder(new Pose2d(0,36))
-                .strafeTo(new Vector2d(-54, 36))
+        FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
+                .turn(Math.toRadians(-90))
                 .build();
 
-        TrajectorySequence turnRight = drive.trajectorySequenceBuilder(strafeRightToCones.end())
-                .turn(Math.toRadians(-90)) // Turns 90 degrees clockwise
+        Trajectory trajSlightlyForwardToSecondJunction = drive.trajectoryBuilder(FaceStraight.end())
+                .forward(5)
                 .build();
 
+        Trajectory trajSlightlyBackwardToSecondJunction = drive.trajectoryBuilder(trajSlightlyForwardToSecondJunction.end())
+                .back(5)
+                .build();
 
+        // Three Parking Trajectories
 
+        Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeRight(13)
+                .build();
 
+        Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeLeft(12)
+                .build();
 
-
+        Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeLeft(39)
+                .build();
 
 
 
@@ -265,38 +302,57 @@ public class RightAutonomousTwoCones extends LinearOpMode {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
+        //drive.setPoseEstimate(startPos);
+        // Do When Initialized
+        servoClose();
+        sleep(5);
+        armUp(distance(8));
+        sleep(15);
+        drive.followTrajectory(trajStart);
+        //driveForwardPower(distance(4), 0.1);
+        sleep(10);
+        drive.followTrajectory(trajLeftToFirstJunction);
+        drive.followTrajectory(trajForwardToFirstJunction);
+        armUp(4150);
+        sleep(10);
+        //driveForwardPower(distance(4), 0.1);
+        drive.followTrajectory(trajSlightlyForwardToFirstJunction);
+        sleep(10);
+        armDown(300);
+        servoOpen();
+        sleep(10);
+        drive.followTrajectory(trajSlightlyBackwardToFirstJunction);
+        sleep(10);
+        armDown(3400);
+        sleep(10);
+        drive.followTrajectory(trajRightToConeStack);
+        sleep(10);
+        sleep(10);
+        drive.followTrajectorySequence(turn90);
+        sleep(10);
+        drive.followTrajectory(trajLeftToConeStack);
+        drive.followTrajectory(trajForwardToConeStack);
+        servoClose();
+        armUp(1500);
+        sleep(50);
+        drive.followTrajectory(trajAwayConeStack);
+        drive.followTrajectorySequence(FaceStraight);
+        armUp(1750);
+        drive.followTrajectory(trajSlightlyForwardToSecondJunction);
+        armDown(385);
+        servoOpen();
+        sleep(10);
+        drive.followTrajectory(trajSlightlyBackwardToSecondJunction);
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-            sleep(5);
-            servoClose();
-            sleep(250);
-            armUp(distance(5));
-            sleep(25);
-            driveForwardPower(distance(4), 0.1);
-            sleep(500);
-            drive.followTrajectory(first_Trajectory);
-            drive.followTrajectory(second_Trajectory);
-            armUp(4040);
-            sleep(100);
-            driveForwardPower(distance(4), 0.1);
-            sleep(100);
-            servoOpen();
-            sleep(200);
-            driveBackwardPower(distance(4), 0.1); // 5 before
-            sleep(100);
-            armDown(distance(60));
-            sleep(500);
-            drive.followTrajectory(third_Trajectory);
-
-
+            drive.followTrajectory(trajZone1);
 
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            sleep(5);
-
+            drive.followTrajectory(trajZone2);
 
         } else { //trajectory
-            sleep(250);
+            drive.followTrajectory(trajZone3);
 
 
         }
@@ -476,8 +532,8 @@ public class RightAutonomousTwoCones extends LinearOpMode {
         leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        rightArm.setPower(0.5);
-        leftArm.setPower(0.5);
+        rightArm.setPower(1);
+        leftArm.setPower(1);
 
         while (rightArm.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
@@ -499,8 +555,8 @@ public class RightAutonomousTwoCones extends LinearOpMode {
         leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        rightArm.setPower(-0.5);
-        leftArm.setPower(-0.5);
+        rightArm.setPower(-1);
+        leftArm.setPower(-1);
 
         while (-rightArm.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
