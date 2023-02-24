@@ -148,7 +148,7 @@ public class RightAuto extends LinearOpMode {
                 .build();
 
         Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
-                .forward(6)
+                .forward(4)
                 .build();
 
         Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
@@ -162,7 +162,7 @@ public class RightAuto extends LinearOpMode {
                 .build();
 
         Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(38)
+                .strafeRight(39)
                 .build();
 
         Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())

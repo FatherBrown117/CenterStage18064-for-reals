@@ -139,34 +139,34 @@ public class LeftAuto extends LinearOpMode {
                 .forward(4)
                 .build();
 
-        Trajectory trajLeftToFirstJunction = drive.trajectoryBuilder(trajStart.end())
-                .strafeLeft(39)
+        Trajectory trajRightToFirstJunction = drive.trajectoryBuilder(trajStart.end())
+                .strafeRight(39)
                 .build();
 
-        Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
+        Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajRightToFirstJunction.end())
                 .forward(27)
                 .build();
 
         Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
-                .forward(6)
+                .forward(3)
                 .build();
 
         Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
-                .back(6)
+                .back(3)
                 .build();
 
         // Three Parking Trajectories
 
         Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(12)
+                .strafeLeft(70)
                 .build();
 
         Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(38)
+                .strafeLeft(39)
                 .build();
 
         Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(70)
+                .strafeLeft(12)
                 .build();
 
 
@@ -280,7 +280,7 @@ public class LeftAuto extends LinearOpMode {
         drive.followTrajectory(trajStart);
         //driveForwardPower(distance(4), 0.1);
         sleep(10);
-        drive.followTrajectory(trajLeftToFirstJunction);
+        drive.followTrajectory(trajRightToFirstJunction);
         drive.followTrajectory(trajForwardToFirstJunction);
         armUp(4150);
         sleep(10);
