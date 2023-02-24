@@ -21,8 +21,9 @@
 
 package org.firstinspires.ftc.teamcode.detection;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -30,6 +31,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.BasicAuto;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -37,9 +40,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-@Disabled
 @Autonomous
-public class RightAutonomousMiddleJunction extends LinearOpMode {
+public class RightAutoBLUETwoCones extends LinearOpMode {
+
 
     BasicAuto obj = new BasicAuto();
 
@@ -49,7 +52,22 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
     private DcMotor leftRear = null;
     private DcMotor rightArm = null;
     private DcMotor leftArm = null;
-    private Servo clawServo = null;
+    private Servo rightClaw = null;
+    private Servo leftClaw = null;
+
+    //Starting Posistion
+
+    private final Pose2d home = new Pose2d(-42,68,90.0);
+
+    // Roadrunner Trajectory Variables
+    private TrajectorySequence turn90;
+    private TrajectorySequence FaceStraight;
+    private TrajectorySequence ForwardToHighJunction;
+    //private TrajectorySequence ;
+
+
+
+
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -79,6 +97,8 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
     public void runOpMode()
     {
 
+
+
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         leftRear = hardwareMap.get(DcMotor.class, "leftRear");
@@ -97,13 +117,92 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightArm.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        rightClaw = hardwareMap.get(Servo.class, "rightClaw");
+        leftClaw = hardwareMap.get(Servo.class, "leftClaw");
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
+
+        // RoadRunner Hardware Mapping and Trajectories //
+
+
+
+
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180)); // Breaks Code
+
+        Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
+                .forward(4)
+                .build();
+
+        Trajectory trajLeftToFirstJunction = drive.trajectoryBuilder(trajStart.end())
+                .strafeLeft(43)
+                .build();
+
+        Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
+                .forward(27)
+                .build();
+
+        Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
+                .forward(6)
+                .build();
+
+        Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
+                .back(6)
+                .build();
+
+        Trajectory trajRightToConeStack = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
+                .strafeRight(42)
+                .build();
+
+        turn90 = drive.trajectorySequenceBuilder( trajRightToConeStack.end())
+                .turn(Math.toRadians(-90))
+                .build();
+
+        Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
+                .strafeLeft(24)
+                .build();
+
+        Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
+                .forward(26)
+                .build();
+
+        Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
+                .back(37)
+                .build();
+
+        FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
+                .turn(Math.toRadians(-90))
+                .build();
+
+        Trajectory trajSlightlyForwardToSecondJunction = drive.trajectoryBuilder(FaceStraight.end())
+                .forward(5)
+                .build();
+
+        Trajectory trajSlightlyBackwardToSecondJunction = drive.trajectoryBuilder(trajSlightlyForwardToSecondJunction.end())
+                .back(5)
+                .build();
+
+        // Three Parking Trajectories
+
+        Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeRight(13)
+                .build();
+
+        Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeLeft(12)
+                .build();
+
+        Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
+                .strafeLeft(39)
+                .build();
+
+
+
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -201,59 +300,58 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
+        //drive.setPoseEstimate(startPos);
+        // Do When Initialized
+        servoClose();
+        sleep(5);
+        armUp(distance(8));
+        sleep(15);
+        drive.followTrajectory(trajStart);
+        //driveForwardPower(distance(4), 0.1);
+        sleep(10);
+        drive.followTrajectory(trajLeftToFirstJunction);
+        drive.followTrajectory(trajForwardToFirstJunction);
+        armUp(4150);
+        sleep(10);
+        //driveForwardPower(distance(4), 0.1);
+        drive.followTrajectory(trajSlightlyForwardToFirstJunction);
+        sleep(10);
+        armDown(300);
+        servoOpen();
+        sleep(10);
+        drive.followTrajectory(trajSlightlyBackwardToFirstJunction);
+        sleep(10);
+        armDown(3400);
+        sleep(10);
+        drive.followTrajectory(trajRightToConeStack);
+        sleep(10);
+        sleep(10);
+        drive.followTrajectorySequence(turn90);
+        sleep(10);
+        drive.followTrajectory(trajLeftToConeStack);
+        drive.followTrajectory(trajForwardToConeStack);
+        servoClose();
+        armUp(1250);
+        sleep(50);
+        drive.followTrajectory(trajAwayConeStack);
+        drive.followTrajectorySequence(FaceStraight);
+        armUp(1600);
+        drive.followTrajectory(trajSlightlyForwardToSecondJunction);
+        armDown(300);
+        servoOpen();
+        sleep(10);
+        drive.followTrajectory(trajSlightlyBackwardToSecondJunction);
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-
-            clawServo.setPosition(.95);
-            sleep(500);
-            driveForward(distance(3));
-            //armUp(distance(12));
-            strafeLeft(distance(27));
-            driveForward(distance(27));
-            strafeRight(distance(15));
-            //armUp(2540);l
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
-            sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeRight(distance(38));
+            drive.followTrajectory(trajZone1);
 
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            clawServo.setPosition(.95);
-            sleep(500);
-            driveForward(distance(3));
-            //armUp(distance(12));
-            strafeLeft(distance(28));
-            driveForward(distance(26));
-            strafeRight(distance(16));
-            //armUp(2540);
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
-            sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeRight(distance(10));
+            drive.followTrajectory(trajZone2);
 
         } else { //trajectory
-            clawServo.setPosition(.95);
-            sleep(500);
-            driveForward(distance(3));
-            //armUp(distance(12));
-            strafeLeft(distance(27));
-            driveForward(distance(27));
-            strafeRight(distance(16));
-            //armUp(2540);
-            driveForward(distance(3));
-            //armDown(distance(30));
-            //clawServo.setPosition(0.4);
-            sleep(500);
-            //armDown(distance(8));
-            driveBackward(distance(7));
-            strafeLeft(distance(5));
+            drive.followTrajectory(trajZone3);
+
 
         }
 
@@ -264,7 +362,42 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
 
     void tagToTelemetry(AprilTagDetection detection)
     {
-        telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
+            telemetry.addLine("/*\n" +
+                    "    1  \n" +
+                    "   11  \n" +
+                    "  111  \n" +
+                    "    1  \n" +
+                    "    1  \n" +
+                    "    1  \n" +
+                    "  1111 \n" +
+                    "*/");
+
+        } else if (tagOfInterest.id == MIDDLE) {
+            telemetry.addLine(String.format(("/*\n" +
+                    "  ___  \n" +
+                    " |__ \\ \n" +
+                    "    ) |\n" +
+                    "   / / \n" +
+                    "  / /_ \n" +
+                    " |____|\n" +
+                    "*/")));
+
+
+        } else { //trajectory
+            telemetry.addLine("/*\n" +
+                    "  ____ \n" +
+                    " /___ \\\n" +
+                    "     \\ \\\n" +
+                    "    __\\ \\\n" +
+                    "   /___\\\n" +
+                    "       \\\n" +
+                    "  ____/ |\n" +
+                    " |_____/ \n" +
+                    "*/");
+        }
+
+        telemetry.addLine(String.format("\n\nDetected tag ID=%d", detection.id));
         telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
         telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
@@ -279,12 +412,15 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
     }
 
     public void servoOpen() {
-        clawServo.setPosition(.5);
+        rightClaw.setPosition(0.13);// opens claw
+        leftClaw.setPosition(0.83);
     }
 
     public void servoClose() {
-        clawServo.setPosition(0);
+        rightClaw.setPosition(0.45); //closes claw
+        leftClaw.setPosition(0.52);
     }
+
 
     public void driveForward(double distance) {
 
@@ -429,8 +565,8 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
         leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        rightArm.setPower(0.5);
-        leftArm.setPower(0.5);
+        rightArm.setPower(1);
+        leftArm.setPower(1);
 
         while (rightArm.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
@@ -452,8 +588,8 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
         leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        rightArm.setPower(-0.5);
-        leftArm.setPower(-0.5);
+        rightArm.setPower(-1);
+        leftArm.setPower(-1);
 
         while (-rightArm.getCurrentPosition() < distance) {
             telemetry.addData("Arm Encoder", rightArm.getCurrentPosition());
@@ -467,4 +603,132 @@ public class RightAutonomousMiddleJunction extends LinearOpMode {
 
     }
 
+    public void driveForwardPower(double distance, double speed) {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(speed);
+        rightFront.setPower(speed);
+        leftRear.setPower(speed);
+        rightRear.setPower(speed);
+
+        while (rightFront.getCurrentPosition() < (distance - 10)) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        //Slowing down to reduce momentum
+        leftFront.setPower(0.1);
+        rightFront.setPower(0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(0.1);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+    }
+    public void driveBackwardPower(double distance, double speed) { // Positive Speed in Reverse
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(-speed);
+        rightFront.setPower(-speed);
+        leftRear.setPower(-speed);
+        rightRear.setPower(-speed);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+    public void strafeLeftPower(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(-power);
+        rightFront.setPower(power);
+        leftRear.setPower(power);
+        rightRear.setPower(-power);
+
+        while (-rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
+    public void strafeRightPower(double distance, double power) {
+
+        //Reset Encoders
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftFront.setPower(power);
+        rightFront.setPower(-power);
+        leftRear.setPower(-power);
+        rightRear.setPower(power);
+
+        while (rightFront.getCurrentPosition() < distance) {
+            telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
+
+        sleep(500);
+
+    }
 }
