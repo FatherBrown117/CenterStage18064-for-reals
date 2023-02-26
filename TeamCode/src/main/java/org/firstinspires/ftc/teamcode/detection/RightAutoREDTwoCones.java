@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class LeftAutoREDTwoCones extends LinearOpMode {
+public class RightAutoREDTwoCones extends LinearOpMode {
 
 
     BasicAuto obj = new BasicAuto();
@@ -140,15 +140,15 @@ public class LeftAutoREDTwoCones extends LinearOpMode {
                 .build();
 
         Trajectory trajLeftToFirstJunction = drive.trajectoryBuilder(trajStart.end())
-                .strafeLeft(43)
+                .strafeLeft(44)
                 .build();
 
         Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
-                .forward(27)
+                .forward(28)
                 .build();
 
         Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
-                .forward(6)
+                .forward(4)
                 .build();
 
         Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
@@ -164,7 +164,7 @@ public class LeftAutoREDTwoCones extends LinearOpMode {
                 .build();
 
         Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
-                .strafeLeft(24)
+                .strafeLeft(26)
                 .build();
 
         Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
@@ -303,7 +303,7 @@ public class LeftAutoREDTwoCones extends LinearOpMode {
         //drive.setPoseEstimate(startPos);
         // Do When Initialized
         servoClose();
-        sleep(5);
+        sleep(50);
         armUp(distance(8));
         sleep(15);
         drive.followTrajectory(trajStart);

@@ -122,11 +122,11 @@ public class OnePlayerMode extends LinearOpMode {
                 leftRear.setPower(-0.65);
                 rightRear.setPower(-0.65);
             } else if (G1rightBumper) { // arm up
-                rightArm.setPower(0.75);
-                leftArm.setPower(0.75);
+                rightArm.setPower(0.9);
+                leftArm.setPower(0.9);
             } else if (G1leftBumper) { // arm down
-                rightArm.setPower(-0.45);
-                leftArm.setPower(-0.45);
+                rightArm.setPower(-0.6);
+                leftArm.setPower(-0.6);
             } else if (gamepad1.x) { // arm power off
                 rightArm.setPower(0);
                 leftArm.setPower(0);

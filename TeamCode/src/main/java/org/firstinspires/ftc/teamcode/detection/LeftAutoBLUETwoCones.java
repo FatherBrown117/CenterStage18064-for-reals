@@ -164,7 +164,7 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
                 .build();
 
         Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
-                .strafeRight(24)
+                .strafeLeft(24)
                 .build();
 
         Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
@@ -303,7 +303,7 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
         //drive.setPoseEstimate(startPos);
         // Do When Initialized
         servoClose();
-        sleep(5);
+        sleep(50);
         armUp(distance(8));
         sleep(15);
         drive.followTrajectory(trajStart);

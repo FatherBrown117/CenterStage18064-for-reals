@@ -144,7 +144,7 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
                 .build();
 
         Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
-                .forward(27)
+                .forward(26)
                 .build();
 
         Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
@@ -303,7 +303,7 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
         //drive.setPoseEstimate(startPos);
         // Do When Initialized
         servoClose();
-        sleep(5);
+        sleep(50);
         armUp(distance(8));
         sleep(15);
         drive.followTrajectory(trajStart);

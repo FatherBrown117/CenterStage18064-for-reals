@@ -140,11 +140,11 @@ public class LeftAuto extends LinearOpMode {
                 .build();
 
         Trajectory trajRightToFirstJunction = drive.trajectoryBuilder(trajStart.end())
-                .strafeRight(39)
+                .strafeRight(38)
                 .build();
 
         Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajRightToFirstJunction.end())
-                .forward(27)
+                .forward(26)
                 .build();
 
         Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
@@ -274,9 +274,8 @@ public class LeftAuto extends LinearOpMode {
         //drive.setPoseEstimate(startPos);
         // Do When Initialized
         servoClose();
-        sleep(5);
         armUp(distance(8));
-        sleep(15);
+        sleep(50);
         drive.followTrajectory(trajStart);
         //driveForwardPower(distance(4), 0.1);
         sleep(10);
