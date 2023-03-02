@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class RightAutoBLUETwoCones extends LinearOpMode {
+public class RightAutoBLUETwoCone extends LinearOpMode {
 
 
     BasicAuto obj = new BasicAuto();
@@ -133,7 +133,7 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180)); // Breaks Code
+        Pose2d startPos = new Pose2d(33, 65, Math.toRadians(180)); // Breaks Code Edit: Not anymore
 
         Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
                 .forward(4)
@@ -200,7 +200,6 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
         Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
                 .strafeLeft(39)
                 .build();
-
 
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -288,6 +287,7 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
          * during the init loop.
          */
 
+
         /* Update the telemetry */
         if(tagOfInterest != null)
         {
@@ -300,8 +300,6 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
-        //drive.setPoseEstimate(startPos);
-        // Do When Initialized
         servoClose();
         sleep(50);
         armUp(distance(8));
@@ -351,7 +349,6 @@ public class RightAutoBLUETwoCones extends LinearOpMode {
 
         } else { //trajectory
             drive.followTrajectory(trajZone3);
-
 
         }
 

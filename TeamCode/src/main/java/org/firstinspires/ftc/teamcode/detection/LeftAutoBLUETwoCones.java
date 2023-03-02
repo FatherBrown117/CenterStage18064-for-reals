@@ -22,6 +22,7 @@
 package org.firstinspires.ftc.teamcode.detection;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -133,74 +134,38 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180)); // Breaks Code
+        Pose2d startPos = new Pose2d(33, 65, Math.toRadians(180)); // Breaks Code Edit: Not anymore
 
-        Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
-                .forward(4)
+        Trajectory getToFirstJunction = drive.trajectoryBuilder(startPos)
+                .splineToConstantHeading(new Vector2d(37,60),Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(35,18),Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(24,7),Math.toRadians(-90))
                 .build();
 
-        Trajectory trajLeftToFirstJunction = drive.trajectoryBuilder(trajStart.end())
-                .strafeRight(39)
+        Trajectory slightlyForward1 = drive.trajectoryBuilder(getToFirstJunction.end())
+                .forward(2)
                 .build();
 
-        Trajectory trajForwardToFirstJunction = drive.trajectoryBuilder(trajLeftToFirstJunction.end())
-                .forward(27)
+        Trajectory slightlyBackward1 = drive.trajectoryBuilder(slightlyForward1.end())
+                .back(2)
                 .build();
 
-        Trajectory trajSlightlyForwardToFirstJunction = drive.trajectoryBuilder(trajForwardToFirstJunction.end()) // 0 20 before
-                .forward(6)
+        Trajectory toConeStack1 = drive.trajectoryBuilder(slightlyBackward1.end())
+                .splineToConstantHeading(new Vector2d(32,10),Math.toRadians(0))
+                .lineToLinearHeading(new Pose2d(60,12, Math.toRadians(0)))
                 .build();
 
-        Trajectory trajSlightlyBackwardToFirstJunction = drive.trajectoryBuilder(trajSlightlyForwardToFirstJunction.end()) // 0 20 before
-                .back(6)
+        Trajectory slightlyForward2 = drive.trajectoryBuilder(toConeStack1.end())
+                .forward(2)
                 .build();
 
-        Trajectory trajRightToConeStack = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(42)
+        Trajectory slightlyBackward2 = drive.trajectoryBuilder(slightlyForward2.end())
+                .back(2)
                 .build();
-
-        turn90 = drive.trajectorySequenceBuilder( trajRightToConeStack.end())
-                .turn(Math.toRadians(90))
+        Trajectory toJunction2 = drive.trajectoryBuilder(slightlyBackward2.end())
+            .lineToLinearHeading(new Pose2d(32,12, Math.toRadians(-90)))
+            .splineToConstantHeading(new Vector2d(24,9),Math.toRadians(0))
                 .build();
-
-        Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
-                .strafeLeft(24)
-                .build();
-
-        Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
-                .forward(26)
-                .build();
-
-        Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
-                .back(37)
-                .build();
-
-        FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
-                .turn(Math.toRadians(90))
-                .build();
-
-        Trajectory trajSlightlyForwardToSecondJunction = drive.trajectoryBuilder(FaceStraight.end())
-                .forward(5)
-                .build();
-
-        Trajectory trajSlightlyBackwardToSecondJunction = drive.trajectoryBuilder(trajSlightlyForwardToSecondJunction.end())
-                .back(5)
-                .build();
-
-        // Three Parking Trajectories
-
-        Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeRight(15)
-                .build();
-
-        Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeLeft(12)
-                .build();
-
-        Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeLeft(39)
-                .build();
-
 
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -288,6 +253,7 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
          * during the init loop.
          */
 
+
         /* Update the telemetry */
         if(tagOfInterest != null)
         {
@@ -300,50 +266,41 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
-        //drive.setPoseEstimate(startPos);
+        drive.setPoseEstimate(startPos);
         // Do When Initialized
         servoClose();
         sleep(50);
         armUp(distance(8));
         sleep(15);
-        drive.followTrajectory(trajStart);
-        //driveForwardPower(distance(4), 0.1);
-        sleep(10);
-        drive.followTrajectory(trajLeftToFirstJunction);
-        drive.followTrajectory(trajForwardToFirstJunction);
+        drive.followTrajectory(getToFirstJunction);
         armUp(4150);
         sleep(10);
-        //driveForwardPower(distance(4), 0.1);
-        drive.followTrajectory(trajSlightlyForwardToFirstJunction);
-        sleep(10);
+        drive.followTrajectory(slightlyForward1);
         armDown(300);
         servoOpen();
-        sleep(10);
-        drive.followTrajectory(trajSlightlyBackwardToFirstJunction);
+        drive.followTrajectory(slightlyBackward1);
         armDown(3400);
-        drive.followTrajectory(trajRightToConeStack);
-        drive.followTrajectorySequence(turn90);
-        drive.followTrajectory(trajLeftToConeStack);
-        drive.followTrajectory(trajForwardToConeStack);
+        drive.followTrajectory(toConeStack1);
+        drive.followTrajectory(slightlyForward2);
         servoClose();
-        armUp(1250);
-        drive.followTrajectory(trajAwayConeStack);
-        drive.followTrajectorySequence(FaceStraight);
-        armUp(1750);
-        drive.followTrajectory(trajSlightlyForwardToSecondJunction);
-        armDown(425);
-        servoOpen();
-        drive.followTrajectory(trajSlightlyBackwardToSecondJunction);
+        armUp(350);
+        drive.followTrajectory(slightlyBackward2);
+        drive.followTrajectory(toJunction2);
+
+
+
+
+
 
         /* Actually do something useful */
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-            drive.followTrajectory(trajZone1);
+            //drive.followTrajectory(trajZone1);
 
         } else if (tagOfInterest.id == MIDDLE) { //trajectory
-            drive.followTrajectory(trajZone2);
+            //drive.followTrajectory(trajZone2);
 
         } else { //trajectory
-            drive.followTrajectory(trajZone3);
+            //drive.followTrajectory(trajZone3);
 
 
         }
@@ -357,13 +314,13 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
     {
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             telemetry.addLine("/*\n" +
-                    "    1  \n" +
-                    "   11  \n" +
-                    "  111  \n" +
-                    "    1  \n" +
-                    "    1  \n" +
-                    "    1  \n" +
-                    "  1111 \n" +
+                    "   111  \n" +
+                    " 111111 \n" +
+                    "    11  \n" +
+                    "    11  \n" +
+                    "    11  \n" +
+                    "    11  \n" +
+                    " 11111111 \n" +
                     "*/");
 
         } else if (tagOfInterest.id == MIDDLE) {

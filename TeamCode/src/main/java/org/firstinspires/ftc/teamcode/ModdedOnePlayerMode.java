@@ -67,9 +67,9 @@ public class ModdedOnePlayerMode extends LinearOpMode {
             double G1LT = gamepad1.left_trigger;
 
             //claw movements
-            if (G1A && clawClosed){
+            if (gamepad1.a){
                 clawClosed = false;
-            } else if (G1A && !clawClosed) {
+            } else if (gamepad1.b) {
                 clawClosed = true;
             }
 
