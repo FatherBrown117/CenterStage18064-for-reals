@@ -273,11 +273,11 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
                 .build();
 
         Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajRightToConeStack.end())
-                .forward(25)
+                .forward(28)
                 .build();
 
         Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
-                .back(37)
+                .back(40)
                 .build();
 
         FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
@@ -295,7 +295,7 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
         // Three Parking Trajectories
 
         Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeLeft(13)
+                .strafeLeft(18)
                 .build();
 
         Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
@@ -346,8 +346,8 @@ public class LeftAutoBLUETwoCones extends LinearOpMode {
         drive.followTrajectory(trajRightToConeStack);
         drive.followTrajectory(trajForwardToConeStack);
         servoClose();
+        sleep(1000);
         armUp(1250);
-        sleep(50);
         drive.followTrajectory(trajAwayConeStack);
         drive.followTrajectorySequence(FaceStraight);
         armUp(2550);
