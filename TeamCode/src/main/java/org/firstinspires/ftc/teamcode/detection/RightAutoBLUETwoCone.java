@@ -131,6 +131,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
 
 
 
+        servoClose();
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         Pose2d startPos = new Pose2d(33, 65, Math.toRadians(180)); // Breaks Code Edit: Not anymore
@@ -156,8 +157,10 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
                 .build();
 
         Trajectory trajRightToConeStack = drive.trajectoryBuilder(trajSlightlyBackwardToFirstJunction.end())
-                .strafeRight(42)
+                .strafeRight(43)
                 .build();
+
+
 
         turn90 = drive.trajectorySequenceBuilder( trajRightToConeStack.end())
                 .turn(Math.toRadians(-90))
@@ -168,11 +171,11 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
                 .build();
 
         Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
-                .forward(26)
+                .forward(27)
                 .build();
 
         Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
-                .back(37)
+                .back(38)
                 .build();
 
         FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
@@ -300,8 +303,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
             telemetry.addLine("No tag snapshot available, it was never sighted during the init loop :(");
             telemetry.update();
         }
-        servoClose();
-        sleep(50);
+
         armUp(distance(8));
         sleep(15);
         drive.followTrajectory(trajStart);
@@ -309,7 +311,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
         sleep(10);
         drive.followTrajectory(trajLeftToFirstJunction);
         drive.followTrajectory(trajForwardToFirstJunction);
-        armUp(4150);
+        armUp(3750);
         sleep(10);
         //driveForwardPower(distance(4), 0.1);
         drive.followTrajectory(trajSlightlyForwardToFirstJunction);
@@ -319,7 +321,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
         sleep(10);
         drive.followTrajectory(trajSlightlyBackwardToFirstJunction);
         sleep(10);
-        armDown(3400);
+        armDown(2900);
         sleep(10);
         drive.followTrajectory(trajRightToConeStack);
         sleep(10);

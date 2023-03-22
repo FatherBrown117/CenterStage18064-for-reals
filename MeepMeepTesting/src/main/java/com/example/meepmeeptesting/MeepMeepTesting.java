@@ -12,8 +12,48 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(50, 100, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(10, 100, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
+                        drive.trajectorySequenceBuilder(new Pose2d(33, 62, Math.toRadians(-90)))
+                                .forward(4)
+                                .strafeRight(33)
+                                .forward(26)
+                                .forward(6)
+                                .back(6)
+                                .strafeLeft(42)
+                                .build()
+
+
+                        //drive.trajectorySequenceBuilder(new Pose2d(38, 62, Math.toRadians(-90)))
+                                /*
+                                .splineToConstantHeading(new Vector2d(35,60),Math.toRadians(-90))
+                                .lineToLinearHeading(new Pose2d(10,58, Math.toRadians(-90)))
+                                .lineToLinearHeading(new Pose2d(10,23, Math.toRadians(-180)))
+                                .forward(3)
+                                .back(3)
+                                .back(3)
+                                .lineToLinearHeading(new Pose2d(10,12, Math.toRadians(-0)))
+                                .lineToLinearHeading(new Pose2d(60,12, Math.toRadians(0)))
+                                .forward(3)
+                                .back(3)
+                                .lineToLinearHeading(new Pose2d(24,12, Math.toRadians(90)))
+                .forward(3)
+                                .forward(2)
+                                .back(5)
+                                //Park
+
+
+                           */
+
+                        // ---------------------Top Right two cones improved
+                        /*
+
+                        drive.trajectorySequenceBuilder(new Pose2d(-38, 62, Math.toRadians(-90)))
+                                .splineToConstantHeading(new Vector2d(-35,58),Math.toRadians(-90))
+                                .lineToLinearHeading(new Pose2d(-12,58, Math.toRadians(-90)))
+
+                         */
+                        // -------------------TOP-Left //
                         /*
                         drive.trajectorySequenceBuilder(new Pose2d(-34, 62, Math.toRadians(-90)))
                                 .splineToConstantHeading(new Vector2d(-34,15),Math.toRadians(-90))
@@ -23,9 +63,9 @@ public class MeepMeepTesting {
                                 .splineToConstantHeading(new Vector2d(-35,11),Math.toRadians(-90))
                                 .lineToLinearHeading(new Pose2d(-60,12, Math.toRadians(180)))
 
-                                */
+                        */
 
-
+                        /*
                                     // ---------------------------Top-Right--------------------
                         drive.trajectorySequenceBuilder(new Pose2d(33, 65, Math.toRadians(-90)))
                                 //To first junction
@@ -101,7 +141,8 @@ public class MeepMeepTesting {
                                 .strafeRight(13)
 
                                  */
-                                .build()
+
+
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)

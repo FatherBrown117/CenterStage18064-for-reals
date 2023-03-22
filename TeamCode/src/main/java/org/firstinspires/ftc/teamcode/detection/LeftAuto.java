@@ -57,7 +57,7 @@ public class LeftAuto extends LinearOpMode {
 
     //Starting Posistion
 
-    private final Pose2d home = new Pose2d(-42,68,90.0);
+
 
     // Roadrunner Trajectory Variables
     private TrajectorySequence turn90;
@@ -127,6 +127,8 @@ public class LeftAuto extends LinearOpMode {
         camera.setPipeline(aprilTagDetectionPipeline);
 
         // RoadRunner Hardware Mapping and Trajectories //
+
+        servoClose();
 
 
 
@@ -681,4 +683,5 @@ public class LeftAuto extends LinearOpMode {
         sleep(500);
 
     }
+
 }

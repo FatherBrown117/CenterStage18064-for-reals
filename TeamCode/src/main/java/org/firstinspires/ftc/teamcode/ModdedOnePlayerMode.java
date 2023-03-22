@@ -137,8 +137,8 @@ public class ModdedOnePlayerMode extends LinearOpMode {
                 rightArm.setPower(-0.6);
                 leftArm.setPower(-0.6);
             } else if (!G1leftBumper && !G1rightBumper) {
-                rightArm.setPower(0);
-                leftArm.setPower(0);
+                rightArm.setPower(0.05);
+                leftArm.setPower(0.05);
             }
 
             telemetry.addData("Status", "Running");
