@@ -167,7 +167,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
                 .build();
 
         Trajectory trajLeftToConeStack = drive.trajectoryBuilder(turn90.end())
-                .strafeLeft(24)
+                .strafeLeft(25)
                 .build();
 
         Trajectory trajForwardToConeStack = drive.trajectoryBuilder(trajLeftToConeStack.end())
@@ -175,7 +175,7 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
                 .build();
 
         Trajectory trajAwayConeStack = drive.trajectoryBuilder(trajForwardToConeStack.end())
-                .back(38)
+                .back(37)
                 .build();
 
         FaceStraight = drive.trajectorySequenceBuilder(trajAwayConeStack.end())
@@ -183,11 +183,11 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
                 .build();
 
         Trajectory trajSlightlyForwardToSecondJunction = drive.trajectoryBuilder(FaceStraight.end())
-                .forward(5)
+                .forward(6)
                 .build();
 
         Trajectory trajSlightlyBackwardToSecondJunction = drive.trajectoryBuilder(trajSlightlyForwardToSecondJunction.end())
-                .back(5)
+                .back(6)
                 .build();
 
         // Three Parking Trajectories
@@ -311,17 +311,17 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
         sleep(10);
         drive.followTrajectory(trajLeftToFirstJunction);
         drive.followTrajectory(trajForwardToFirstJunction);
-        armUp(3750);
+        armUp(3850);
         sleep(10);
         //driveForwardPower(distance(4), 0.1);
         drive.followTrajectory(trajSlightlyForwardToFirstJunction);
         sleep(10);
-        armDown(300);
+        armDown(400);
         servoOpen();
         sleep(10);
         drive.followTrajectory(trajSlightlyBackwardToFirstJunction);
         sleep(10);
-        armDown(2900);
+        armDown(3000);
         sleep(10);
         drive.followTrajectory(trajRightToConeStack);
         sleep(10);
@@ -331,11 +331,11 @@ public class RightAutoBLUETwoCone extends LinearOpMode {
         drive.followTrajectory(trajLeftToConeStack);
         drive.followTrajectory(trajForwardToConeStack);
         servoClose();
-        armUp(1250);
+        armUp(900);
         sleep(50);
         drive.followTrajectory(trajAwayConeStack);
         drive.followTrajectorySequence(FaceStraight);
-        armUp(1600);
+        armUp(1800);
         drive.followTrajectory(trajSlightlyForwardToSecondJunction);
         armDown(300);
         servoOpen();
