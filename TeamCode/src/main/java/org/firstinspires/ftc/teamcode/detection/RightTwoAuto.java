@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Autonomous
-public class RightAutoBLUETwoCone extends LinearOpMode {
+public class RightTwoAuto extends LinearOpMode {
 
 
     BasicAuto obj = new BasicAuto();
