@@ -294,7 +294,7 @@ public class LeftTwoAuto extends LinearOpMode {
         // Three Parking Trajectories
 
         Trajectory trajZone1 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeLeft(39)
+                .strafeLeft(40)
                 .build();
 
         Trajectory trajZone2 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
@@ -302,7 +302,7 @@ public class LeftTwoAuto extends LinearOpMode {
                 .build();
 
         Trajectory trajZone3 = drive.trajectoryBuilder(trajSlightlyBackwardToSecondJunction.end())
-                .strafeRight(18)
+                .strafeRight(15)
                 .build();
 
 
