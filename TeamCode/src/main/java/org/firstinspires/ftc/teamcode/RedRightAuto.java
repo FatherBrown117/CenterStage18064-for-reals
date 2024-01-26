@@ -143,16 +143,18 @@ public class RedRightAuto extends LinearOpMode {
                 if (spikeLocation() == 3) {
 
                     driveBackward(200,0.3);
+                    turnRight(685,0.3);
+                    driveBackward(900,0.3);
                     turnLeft(685,0.3);
-                    driveForward(900,0.3);
-                    turnLeft(685,0.3);
-                    driveForward(1200,0.3);
-                    turnLeft(700,0.3);
-                    driveForward(135,0.3);
-                    frontDeposit();
-                    driveBackward(420,0.3);
-                    strafeLeft(850,0.3);
-                    turnRight(50,0.3);
+                    driveBackward(1200,0.3);
+                    turnRight(700,0.3);
+                    driveBackward(135,0.3);
+                    //frontDeposit();
+                    driveForward(420,0.3);
+                    turnLeft(1555,0.3);
+                    driveBackward(420, 0.3);
+                    //strafeLeft(850,0.3);
+                    //turnRight(50,0.3);
                     dreadOut(3000);
                     backdropDeposit();
                     dreadIn(1500);
@@ -162,12 +164,12 @@ public class RedRightAuto extends LinearOpMode {
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(1020,0.3);
-                    turnLeft(1630, 0.3);
-                    driveForward(150,0.3);
-                    driveBackward(150, 0.3);
-                    frontDeposit();
-                    turnLeft(600,0.3);
+                    driveBackward(1335,0.3);
+                    //turnLeft(1630, 0.3);
+                    driveForward(250,0.3);
+                    //driveBackward(150, 0.3);
+                    //frontDeposit();
+                    turnRight(685,0.3);
                     driveBackward(1675,0.3);
                     //strafeRight(700,0.3);
                     dreadOut(2000);
@@ -181,22 +183,22 @@ public class RedRightAuto extends LinearOpMode {
                     //ORIENT ROBOT
                 } else {
                     driveBackward(1155,0.3);
-                    turnLeft(710,0.3);
+                    turnLeft(680,0.3);
                     driveBackward(265,0.3);
                     //driveBackward(110, 0.3);
                     //frontDeposit();
                     //servo drop first pixel, purple
                     //turnLeft(360,0.3);
                     driveForward(200,0.3);
-                    turnLeft(1530,0.3);
-                    driveBackward(1725,0.3);
-                    strafeRight(195,0.3);
+                    turnLeft(1555,0.3);
+                    driveBackward(1690,0.3);
+                    strafeRight(300,0.3);
                     //strafeRight(170,0.3);
                     dreadOut(2500);
                     backdropDeposit();
                     dreadIn(1000);
                     driveForward(135,0.3);
-                    strafeLeft(1755,0.3);
+                    strafeLeft(1765,0.3);
                     //turnRight(250,0.6);
                     //driveBackward(235,0.3);
 
