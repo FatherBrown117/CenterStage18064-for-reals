@@ -141,27 +141,30 @@ public class RedRightAuto extends LinearOpMode {
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-
-                    driveBackward(200,0.3);
-                    turnRight(685,0.3);
-                    driveBackward(900,0.3);
-                    turnLeft(685,0.3);
-                    driveBackward(1200,0.3);
-                    turnRight(700,0.3);
-                    driveBackward(135,0.3);
-                    //frontDeposit();
-                    driveForward(420,0.3);
-                    turnLeft(1555,0.3);
-                    driveBackward(420, 0.3);
-                    //strafeLeft(850,0.3);
-                    //turnRight(50,0.3);
-                    dreadOut(3000);
+                    driveBackward(700,0.3);
+                    turnRight(250,0.3);
+                    driveBackward(50,0.3);
+                    driveForward(200,0.3);
+                    turnRight(375,0.3);
+                    driveBackward(1700,0.3);
+                    dreadOut(2000);
                     backdropDeposit();
-                    dreadIn(1500);
-                    strafeLeft(800,0.3);
-                    turnRight(50,0.3);
+                    dreadIn(500);
+                    strafeLeft(1100,0.3);
                     driveBackward(300,0.3);
 
+                    /*
+                    driveBackward(1155,0.3);
+                    turnLeft(2300,0.3);
+                    //driveBackward(265,0.3);
+                    //driveBackward(110, 0.3);
+                    //frontDeposit();
+                    //servo drop first pixel, purple
+                    //turnLeft(360,0.3);
+                    driveForward(200,0.3);
+                    turnLeft(900,0.3);
+                    driveBackward(400,0.3);
+                    */
                 } else if (spikeLocation() == 2) {
 
                     driveBackward(1335,0.3);
