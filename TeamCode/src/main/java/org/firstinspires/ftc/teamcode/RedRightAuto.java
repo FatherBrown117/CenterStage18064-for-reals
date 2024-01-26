@@ -66,6 +66,8 @@ public class RedRightAuto extends LinearOpMode {
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
+    private Servo outtake = null;
+    private CRServo intakein = null;
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
@@ -76,7 +78,7 @@ public class RedRightAuto extends LinearOpMode {
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "red_flex",
+            "red_flex",
     };
 
     /**
@@ -101,8 +103,10 @@ public class RedRightAuto extends LinearOpMode {
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
         rightIntake = hardwareMap.get(CRServo.class,"rightIntake");
+        intakein = hardwareMap.get(CRServo.class,"intakein");
         dread = hardwareMap.get(CRServo.class,"dread");
         //vector = hardwareMap.get(DcMotor.class,"vector");
+        outtake = hardwareMap.get(Servo.class,"outtake");
 
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
@@ -114,7 +118,7 @@ public class RedRightAuto extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
@@ -138,36 +142,64 @@ public class RedRightAuto extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    /*obj.driveForward(100);
-                    obj.turnRight(100);
-                    //servo drop first pixel, purple
-                    obj.turnLeft(100);
-                    obj.driveBackward(100);
-                    obj.strafeRight(100);
-                    //servo drop second pixel, yellow
-                    */
+                    driveBackward(200,0.3);
+                    turnLeft(685,0.3);
+                    driveForward(900,0.3);
+                    turnLeft(685,0.3);
+                    driveForward(1200,0.3);
+                    turnLeft(700,0.3);
+                    driveForward(135,0.3);
+                    frontDeposit();
+                    driveBackward(420,0.3);
+                    strafeLeft(850,0.3);
+                    turnRight(50,0.3);
+                    dreadOut(3000);
+                    backdropDeposit();
+                    dreadIn(1500);
+                    strafeLeft(800,0.3);
+                    turnRight(50,0.3);
+                    driveBackward(300,0.3);
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(870, 0.25);
-                    turnRight(640, 0.1);
-                    //servo drop first pixel, purple
-                    /*obj.driveBackward(100);
-                    obj.strafeRight(100);
-                    //servo drop second pixel, yellow
-                    */
+                    driveBackward(1020,0.3);
+                    turnLeft(1630, 0.3);
+                    driveForward(150,0.3);
+                    driveBackward(150, 0.3);
+                    frontDeposit();
+                    turnLeft(600,0.3);
+                    driveBackward(1675,0.3);
+                    //strafeRight(700,0.3);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(500);
+                    driveForward(235, 0.3);
+                    strafeLeft(1150, 0.3);
+                    //turnLeft(250, 0.3);
+                    //driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-
-                    /*obj.driveForward(100);
-                    obj.turnLeft(100);
+                    driveBackward(1155,0.3);
+                    turnLeft(710,0.3);
+                    driveBackward(265,0.3);
+                    //driveBackward(110, 0.3);
+                    //frontDeposit();
                     //servo drop first pixel, purple
-                    obj.turnRight(100);
-                    obj.driveBackward(100);
-                    obj.strafeRight(100);
-                    //servo drop second pixel, yellow
-                    */
+                    //turnLeft(360,0.3);
+                    driveForward(200,0.3);
+                    turnLeft(1530,0.3);
+                    driveBackward(1725,0.3);
+                    strafeRight(195,0.3);
+                    //strafeRight(170,0.3);
+                    dreadOut(2500);
+                    backdropDeposit();
+                    dreadIn(1000);
+                    driveForward(135,0.3);
+                    strafeLeft(1755,0.3);
+                    //turnRight(250,0.6);
+                    //driveBackward(235,0.3);
+
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }
@@ -201,23 +233,23 @@ public class RedRightAuto extends LinearOpMode {
         // Create the TensorFlow processor by using a builder.
         tfod = new TfodProcessor.Builder()
 
-            // With the following lines commented out, the default TfodProcessor Builder
-            // will load the default model for the season. To define a custom model to load, 
-            // choose one of the following:
-            //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
-            //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
-            .setModelAssetName(TFOD_MODEL_ASSET)
-            //.setModelFileName(TFOD_MODEL_FILE)
+                // With the following lines commented out, the default TfodProcessor Builder
+                // will load the default model for the season. To define a custom model to load,
+                // choose one of the following:
+                //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
+                //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
+                .setModelAssetName(TFOD_MODEL_ASSET)
+                //.setModelFileName(TFOD_MODEL_FILE)
 
-            // The following default settings are available to un-comment and edit as needed to 
-            // set parameters for custom models.
-            .setModelLabels(LABELS)
-            //.setIsModelTensorFlow2(true)
-            //.setIsModelQuantized(true)
-            //.setModelInputSize(300)
-            //.setModelAspectRatio(16.0 / 9.0)
+                // The following default settings are available to un-comment and edit as needed to
+                // set parameters for custom models.
+                .setModelLabels(LABELS)
+                //.setIsModelTensorFlow2(true)
+                //.setIsModelQuantized(true)
+                //.setModelInputSize(300)
+                //.setModelAspectRatio(16.0 / 9.0)
 
-            .build();
+                .build();
 
         // Create the vision portal by using a builder.
         VisionPortal.Builder builder = new VisionPortal.Builder();
@@ -311,8 +343,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power);
@@ -342,8 +374,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power * -1);
@@ -373,8 +405,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power * -1);
@@ -404,8 +436,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power);
@@ -437,8 +469,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power);
         rightFront.setPower(power * -1);
@@ -468,8 +500,8 @@ public class RedRightAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront.setPower(power * -1);
         rightFront.setPower(power);
@@ -488,6 +520,41 @@ public class RedRightAuto extends LinearOpMode {
 
         sleep(500);
 
+    }
+
+    public void dreadOut(int time) {
+
+        dread.setPower(-1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void backdropDeposit() {
+        outtake.setPosition(0);
+        sleep(3000);
+        outtake.setPosition(1);
+        sleep(1000);
+    }
+
+    public void dreadIn(int time) {
+
+        dread.setPower(1);
+        sleep(time);
+        dread.setPower(0);
+
+        sleep(500);
+
+    }
+
+    public void frontDeposit() {
+        rightIntake.setPower(1);
+
+        sleep(1000);
+
+        rightIntake.setPower(0);
     }
 
 }   // end class

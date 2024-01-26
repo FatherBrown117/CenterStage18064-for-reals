@@ -19,8 +19,8 @@ public class TestTeleop extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
-    private DcMotor leftBack = null;
-    private DcMotor rightBack = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
     private CRServo intakein = null;
@@ -68,8 +68,8 @@ public class TestTeleop extends LinearOpMode {
 
         leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        leftBack = hardwareMap.get(DcMotor.class,"leftBack"); //backleft, port 3
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");  //backright, port 2
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
         rLift = hardwareMap.get(DcMotor.class,"rLift");
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
@@ -83,16 +83,16 @@ public class TestTeleop extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.FORWARD);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
-        leftBack.setDirection(DcMotor.Direction.FORWARD);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
+        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
         displayKind = Blink.DisplayKind.AUTO;
 
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.CP1_BREATH_FAST;
@@ -156,54 +156,54 @@ public class TestTeleop extends LinearOpMode {
 
             if (G1leftStickY > 0) {
                 leftFront.setPower(1);
-                leftBack.setPower(1);
+                leftRear.setPower(1);
                 rightFront.setPower(1);
-                rightBack.setPower(1);
+                rightRear.setPower(1);
             }if (G1leftStickY < 0) { // Backwards
                 leftFront.setPower(-1);
-                leftBack.setPower(-1);
+                leftRear.setPower(-1);
                 rightFront.setPower(-1);
-                rightBack.setPower(-1);
+                rightRear.setPower(-1);
             }if (G1leftStickX < 0) { // Move right
                 leftFront.setPower(1);
                 rightFront.setPower(-1);
-                leftBack.setPower(-1);
-                rightBack.setPower(1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
             }if (G1leftStickX > 0) { // Move left
                 leftFront.setPower(-1);
                 rightFront.setPower(1);
-                leftBack.setPower(1);
-                rightBack.setPower(-1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
             }if (G1rightStickX > 0) { // Move left
                 leftFront.setPower(1);
                 rightFront.setPower(-1);
-                leftBack.setPower(1);
-                rightBack.setPower(-1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
             }if (G1rightStickX < 0) { // Move left
                 leftFront.setPower(-1);
                 rightFront.setPower(1);
-                leftBack.setPower(-1);
-                rightBack.setPower(1);
+                leftRear.setPower(-1);
+                rightRear.setPower(1);
             }if (G1UD) {
                 leftFront.setPower(.5);
-                leftBack.setPower(.5);
+                leftRear.setPower(.5);
                 rightFront.setPower(.5);
-                rightBack.setPower(.5);
+                rightRear.setPower(.5);
             }if (G1DD) { // Backwards
                 leftFront.setPower(-.5);
-                leftBack.setPower(-.5);
+                leftRear.setPower(-.5);
                 rightFront.setPower(-.5);
-                rightBack.setPower(-.5);
+                rightRear.setPower(-.5);
             }if (G1RD) { // Move right
                 leftFront.setPower(.5);
                 rightFront.setPower(-.5);
-                leftBack.setPower(-.5);
-                rightBack.setPower(.5);
+                leftRear.setPower(-.5);
+                rightRear.setPower(.5);
             }if (G1LD) { // Move left
                 leftFront.setPower(-.5);
                 rightFront.setPower(.5);
-                leftBack.setPower(.5);
-                rightBack.setPower(-.5);
+                leftRear.setPower(.5);
+                rightRear.setPower(-.5);
             }if (G2A) { // Intake + treadmill going up
                 leftIntake.setPower(1);
                 rightIntake.setPower(1);
@@ -225,23 +225,23 @@ public class TestTeleop extends LinearOpMode {
             }if (G1B) { // Diagonal: Lower Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(-1);
-                leftBack.setPower(-1);
-                rightBack.setPower(0);
+                leftRear.setPower(-1);
+                rightRear.setPower(0);
             }if (G1X) { // Diagonal: Upper Right (First controller)
                 leftFront.setPower(0);
                 rightFront.setPower(1);
-                leftBack.setPower(1);
-                rightBack.setPower(0);
+                leftRear.setPower(1);
+                rightRear.setPower(0);
             }if (G1A) {
                 leftFront.setPower(-1);
                 rightFront.setPower(0);
-                leftBack.setPower(0);
-                rightBack.setPower(-1);
+                leftRear.setPower(0);
+                rightRear.setPower(-1);
             }if (G1Y) {
                 leftFront.setPower(1);
                 rightFront.setPower(0);
-                leftBack.setPower(0);
-                rightBack.setPower(1);
+                leftRear.setPower(0);
+                rightRear.setPower(1);
             }if (G2back) {
                 drone.setPosition(0);
                 sleep(3000);
@@ -270,8 +270,8 @@ public class TestTeleop extends LinearOpMode {
             } else { //STOP IN THE NAME OF THE LAW!
                 leftFront.setPower(0);
                 rightFront.setPower(0);
-                leftBack.setPower(0);
-                rightBack.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0);
                 leftIntake.setPower(0);
                 rightIntake.setPower(0);
                 dread.setPower(0);

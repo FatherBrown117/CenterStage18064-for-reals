@@ -11,8 +11,8 @@ public class BasicAuto extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
-    private DcMotor leftBack = null;
-    private DcMotor rightBack = null;
+    private DcMotor leftRear = null;
+    private DcMotor rightRear = null;
     private DcMotor rLift = null;
     private DcMotor lLift = null;
     //private DcMotor vector = null;
@@ -28,8 +28,8 @@ public class BasicAuto extends LinearOpMode {
         //hardware mapping
         leftFront = hardwareMap.get(DcMotor.class,"leftFront"); //frontleft, port 0
         rightFront = hardwareMap.get(DcMotor.class,"rightFront");  //frontright, port 1
-        leftBack = hardwareMap.get(DcMotor.class,"leftBack"); //backleft, port 3
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");  //backright, port 2
+        leftRear = hardwareMap.get(DcMotor.class,"leftRear"); //backleft, port 3
+        rightRear = hardwareMap.get(DcMotor.class,"rightRear");  //backright, port 2
         rLift = hardwareMap.get(DcMotor.class,"rLift");
         lLift = hardwareMap.get(DcMotor.class,"lLift");
         leftIntake = hardwareMap.get(CRServo.class,"leftIntake");
@@ -42,8 +42,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.REVERSE);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
         rLift.setDirection(DcMotor.Direction.FORWARD);
         lLift.setDirection(DcMotor.Direction.REVERSE);
         //vector.setDirection(DcMotor.Direction.FORWARD);
@@ -73,26 +73,26 @@ public class BasicAuto extends LinearOpMode {
         //rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //leftFront.setPower(0.5);
         //rightFront.setPower(0.5);
-        //leftBack.setPower(0.5);
-        rightBack.setPower(0.5);
+        //leftRear.setPower(0.5);
+        rightRear.setPower(0.5);
 
 
-        while (-rightBack.getCurrentPosition() < distance) {
-            telemetry.addData("Encoder", rightBack.getCurrentPosition());
+        while (-rightRear.getCurrentPosition() < distance) {
+            telemetry.addData("Encoder", rightRear.getCurrentPosition());
             telemetry.update();
         }
 
         //leftFront.setPower(0);
         //rightFront.setPower(0);
-        //leftBack.setPower(0);
-        rightBack.setPower(0);
+        //leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -105,15 +105,15 @@ public class BasicAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(-0.5);
-        leftBack.setPower(-0.5);
-        rightBack.setPower(-0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(-0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -122,8 +122,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -136,15 +136,15 @@ public class BasicAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(-0.5);
-        leftBack.setPower(-0.5);
-        rightBack.setPower(0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(0.5);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -153,8 +153,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -167,15 +167,15 @@ public class BasicAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(0.5);
-        leftBack.setPower(0.5);
-        rightBack.setPower(-0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(-0.5);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -184,8 +184,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -200,15 +200,15 @@ public class BasicAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(0.5);
         rightFront.setPower(-0.5);
-        leftBack.setPower(0.5);
-        rightBack.setPower(-0.5);
+        leftRear.setPower(0.5);
+        rightRear.setPower(-0.5);
 
         while (-rightFront.getCurrentPosition() < (distance - 10)) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -218,8 +218,8 @@ public class BasicAuto extends LinearOpMode {
         //Slowing down to reduce momentum
         leftFront.setPower(0.1);
         rightFront.setPower(-0.1);
-        leftBack.setPower(0.1);
-        rightBack.setPower(-0.1);
+        leftRear.setPower(0.1);
+        rightRear.setPower(-0.1);
 
         while (-rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -228,8 +228,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 
@@ -242,15 +242,15 @@ public class BasicAuto extends LinearOpMode {
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFront.setPower(-0.5);
         rightFront.setPower(0.5);
-        leftBack.setPower(-0.5);
-        rightBack.setPower(0.5);
+        leftRear.setPower(-0.5);
+        rightRear.setPower(0.5);
 
         while (rightFront.getCurrentPosition() < (distance - 10)) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -260,8 +260,8 @@ public class BasicAuto extends LinearOpMode {
         //Slowing down to reduce momentum
         leftFront.setPower(-0.1);
         rightFront.setPower(0.1);
-        leftBack.setPower(-0.1);
-        rightBack.setPower(0.1);
+        leftRear.setPower(-0.1);
+        rightRear.setPower(0.1);
 
         while (rightFront.getCurrentPosition() < distance) {
             telemetry.addData("Left Encoder", rightFront.getCurrentPosition());
@@ -270,8 +270,8 @@ public class BasicAuto extends LinearOpMode {
 
         leftFront.setPower(0);
         rightFront.setPower(0);
-        leftBack.setPower(0);
-        rightBack.setPower(0);
+        leftRear.setPower(0);
+        rightRear.setPower(0);
 
         sleep(500);
 

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
@@ -35,10 +34,9 @@ public class DriveConstants {
      * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(19.75,0, 9, 14.721254006410254);
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
+            18.287100199171892);
 
-        //line used to calculate f coefficient; taken out because value determined empirically:
-        //getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV)
     /*
      * These are physical constants that can be determined from your robot (including the track
      * width; it will be tune empirically later although a rough estimate is important). Users are
@@ -49,7 +47,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 1.8898; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 13; // in
+    public static double TRACK_WIDTH = 15.5; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -89,10 +87,10 @@ public class DriveConstants {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
 
      */
-    public static double MAX_VEL = 48.893555;
+    public static double MAX_VEL = 34.51952;
     public static double MAX_ACCEL = 52.48291908330528;
-    public static double MAX_ANG_VEL = Math.toRadians(187.94061000000002);
-    public static double MAX_ANG_ACCEL = Math.toRadians(187.94061000000002);
+    public static double MAX_ANG_VEL = Math.toRadians(194.00321032258066);
+    public static double MAX_ANG_ACCEL = Math.toRadians(194.00321032258066);
 
 
     public static double encoderTicksToInches(double ticks) {
