@@ -154,6 +154,7 @@ public class MatchTeleOp extends LinearOpMode {
             boolean G2rightBumper = gamepad2.right_bumper;
             boolean G2leftBumper = gamepad2.left_bumper;
             boolean G2back = gamepad2.back;
+            boolean G1back = gamepad1.back;
 
 
             // Run wheels in POV mode (note: The joystick goes negative when pushed forward, so negate it)
@@ -208,7 +209,7 @@ public class MatchTeleOp extends LinearOpMode {
                 intakein.setPower(0);
             }
 
-            if (G2back) {
+            if (G1back) {
                 leftPull.setPosition(0.5); //plan to break into multiple steps
                 sleep(1000);
                 drone.setPower(-1);
