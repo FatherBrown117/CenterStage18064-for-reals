@@ -210,11 +210,11 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G1back) {
-                leftPull.setPosition(0.5); //plan to break into multiple steps
+                leftPull.setPosition(0.3); //plan to break into multiple steps
                 sleep(1000);
                 drone.setPower(-1);
                 sleep(500);
-                leftPull.setPosition(0);
+                leftPull.setPosition(0.05);
                 drone.setPower(0);
                 //moving into claw and linear slides (second controller)
             }
@@ -239,10 +239,10 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G2leftBumper) { //outtake moves inward (second controller)
-                leftPull.setPosition(1);
+                leftPull.setPosition(0.55);
                 //rightPull.setPosition(0);
             } else if (G2rightBumper) { //outtake moves outward (second controller)
-                leftPull.setPosition(0);
+                leftPull.setPosition(0.05);
                 //rightPull.setPosition(1);
             }
 
