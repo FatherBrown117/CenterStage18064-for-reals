@@ -153,16 +153,16 @@ public class BlueLeftPush extends LinearOpMode {
                     driveForward(300,0.3);
                     turnRight(1535,0.3);
                     driveBackward(1690,0.3);
-                    //strafeLeft(300,0.3);
+                    strafeLeft(300,0.5);
                     //strafeRight(170,0.3);
                     dreadOut(2500);
                     backdropDeposit();
                     dreadIn(1000);
                     driveForward(135,0.3);
-                    strafeRight(1765,0.3);
+                    strafeRight(1765,0.5);
                     //driveForward(200,0.3);
                     //turnRight(250,0.6);
-                    //driveBackward(235,0.3);
+                    driveBackward(500,0.3);
 
 
                 } else if (spikeLocation() == 2) {
@@ -173,14 +173,14 @@ public class BlueLeftPush extends LinearOpMode {
                     //driveBackward(150, 0.3);
                     //frontDeposit();
                     turnLeft(790,0.3);
-                    driveBackward(1725,0.3);
-                    //strafeRight(700,0.3);
+                    driveBackward(1775,0.3);
+                    strafeLeft(250,0.3);
                     dreadOut(2000);
                     backdropDeposit();
                     dreadIn(500);
                     driveForward(235, 0.3);
-                    strafeRight(1650, 0.3);
-                    driveForward(200,0.3);
+                    strafeRight(1600, 0.5);
+                    driveBackward(400,0.3);
                     //turnLeft(250, 0.3);
                     //driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
@@ -188,14 +188,14 @@ public class BlueLeftPush extends LinearOpMode {
                 } else {
                     driveBackward(600,0.3);
                     turnLeft(270,0.3);
-                    driveBackward(300,0.3);
+                    driveBackward(350,0.3);
                     driveForward(450,0.3);
                     turnLeft(355,0.3);
-                    driveBackward(1700,0.3);
-                    dreadOut(2000);
+                    driveBackward(1800,0.3);
+                    dreadOut(2200);
                     backdropDeposit();
                     dreadIn(500);
-                    strafeRight(1100,0.3);
+                    strafeRight(1100,0.5);
                     driveBackward(300,0.3);
                 }
 
@@ -527,7 +527,9 @@ public class BlueLeftPush extends LinearOpMode {
 
     public void backdropDeposit() {
         outtake.setPosition(0);
-        sleep(3000);
+        sleep(1500);
+        driveForward(50,0.3);
+        sleep(500);
         outtake.setPosition(1);
         sleep(1000);
     }
