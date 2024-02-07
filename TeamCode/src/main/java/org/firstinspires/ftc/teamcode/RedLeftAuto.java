@@ -139,8 +139,26 @@ public class RedLeftAuto extends LinearOpMode {
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
+                    driveBackward(700,0.3);
+                    turnRight(250,0.3);
+                    driveBackward(50,0.3);
+                    driveForward(200,0.3);
+                    turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    strafeRight(375,0.3);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(500);
+                    strafeLeft(375,0.3);
 
-                    driveBackward(1255,0.3);
+
+
+
+                    /*driveBackward(1255,0.3);
                     turnLeft(685,0.3);
                     driveForward(135,0.3);
                     driveBackward(50, 0.3);
@@ -149,29 +167,51 @@ public class RedLeftAuto extends LinearOpMode {
                     driveBackward(600,0.3);
                     turnRight(630,0.3);
                     driveBackward(3900, 0.3);
-                    //servo drop second pixel, yellow
+                    //servo drop second pixel, yellow*/
 
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(2100,0.3);
-                    frontDeposit();
-                    driveBackward(150, .3);
-                    turnRight(710, 0.3);
-                    driveBackward(4100, 0.3);
+                    /*
+                    driveBackward(700,0.3);
+                    //turnRight(250,0.3);
+                    driveBackward(50,0.3);
+                    driveForward(200,0.3);
+                    //turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    turnRight(375,0.3);
+                    driveForward(375,0.3);
+                    strafeRight(375,0.3);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(500);
+                    strafeLeft(375,0.3); */
                     //servo drop second pixel, yellow
 
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
 
-                    driveBackward(1255,0.3);
-                    turnRight(685,0.3);
-                    //driveBackward(50,0.3);
-                    frontDeposit();
-                    strafeRight(1100, 0.3);
-                    turnLeft(150, 0.3);
-                    driveBackward(4100, 0.3);
+
+                    driveBackward(900,0.3);
+                    turnLeft(250,0.3);
+                    driveBackward(450,0.3);
+                    driveForward(350,0.3);
+                    turnRight(250,0.3);
+                    //driveBackward(600,0.3);
+                    strafeLeft(40,0.5);
+                    driveBackward(1100,0.4);
+                    turnRight(635,0.3);
+
+                    driveBackward(3650,0.4);
+                    strafeLeft(1200,0.5);
+                    driveBackward(200,0.3);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(500);
+                    strafeRight(600,0.5);
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
@@ -505,7 +545,9 @@ public class RedLeftAuto extends LinearOpMode {
 
     public void backdropDeposit() {
         outtake.setPosition(0);
-        sleep(3000);
+        sleep(1500);
+        driveForward(50,0.3);
+        sleep(500);
         outtake.setPosition(1);
         sleep(1000);
     }
