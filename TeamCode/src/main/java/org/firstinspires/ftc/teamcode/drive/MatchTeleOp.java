@@ -209,6 +209,16 @@ public class MatchTeleOp extends LinearOpMode {
                 intakein.setPower(0.5);
                 gamepadRateLimit.reset();
 
+            } if (G2X) { // Intake + treadmill going up
+                pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
+                displayPattern();
+                gamepadRateLimit.reset();
+
+            } if (G2Y) { // Intake + treadmill going up
+                pattern = RevBlinkinLedDriver.BlinkinPattern.RED;
+                displayPattern();
+                gamepadRateLimit.reset();
+
             } else if (G2B) { // Outtake the Intake (reverse intake
                 leftIntake.setPower(-1);
                 rightIntake.setPower(-1);
@@ -255,11 +265,18 @@ public class MatchTeleOp extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
                 displayPattern();
                 gamepadRateLimit.reset();
-            } else {
-                dread.setPower(0);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.BLUE_GREEN;
+            } else if (G2LD) { //linear SLIDE moves down (second controller)
+                dread.setPower(1);
+                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
                 displayPattern();
                 gamepadRateLimit.reset();
+            } else if (G2RD) { //linear SLIDE moves down (second controller)
+                dread.setPower(1);
+                pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
+                displayPattern();
+                gamepadRateLimit.reset();
+            } else {
+                dread.setPower(0);
             }
 
             if (G2leftBumper) { //outtake moves inward (second controller)
