@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -45,10 +46,12 @@ public class MatchTeleOp extends LinearOpMode {
      * Rate limit gamepad button presses to every 500ms.
      */
     private final static int GAMEPAD_LOCKOUT = 500;
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
 
     Telemetry.Item patternName;
     Telemetry.Item display;
-    //Blink.DisplayKind displayKind;
+    MatchTeleOp.DisplayKind displayKind;
     Deadline ledCycleDeadline;
     Deadline gamepadRateLimit;
 
@@ -60,6 +63,17 @@ public class MatchTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        displayKind = MatchTeleOp.DisplayKind.MANUAL;
+
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.BLUE;
+        blinkinLedDriver.setPattern(pattern);
+
+        display = telemetry.addData("Display Kind: ", displayKind.toString());
+        patternName = telemetry.addData("Pattern: ", pattern.toString());
+
+        ledCycleDeadline = new Deadline(LED_PERIOD, TimeUnit.SECONDS);
+        gamepadRateLimit = new Deadline(GAMEPAD_LOCKOUT, TimeUnit.MILLISECONDS);
         SampleMecanumDrive robot = new SampleMecanumDrive(hardwareMap);
 
         double left;
@@ -181,6 +195,24 @@ public class MatchTeleOp extends LinearOpMode {
             leftRear.setPower(left/2);
             rightRear.setPower(right/2);*/
 
+            if (G2X) {
+                pattern = RevBlinkinLedDriver.BlinkinPattern.HOT_PINK;
+                displayPattern();
+                gamepadRateLimit.reset();
+            } else if (G2Y) {
+                pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
+                displayPattern();
+                gamepadRateLimit.reset();
+            } else if (G2LD) {
+                pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+                displayPattern();
+                gamepadRateLimit.reset();
+            } else if (G2RD) {
+                pattern = RevBlinkinLedDriver.BlinkinPattern.YELLOW;
+                displayPattern();
+                gamepadRateLimit.reset();
+            }
+
             if (gamepad1.right_bumper) {
                 leftFront.setPower(-1);
                 leftRear.setPower(.8);
@@ -210,7 +242,10 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G1back) {
-                leftPull.setPosition(0.3); //plan to break into multiple steps
+                pattern = RevBlinkinLedDriver.BlinkinPattern.CONFETTI;
+                displayPattern();
+                gamepadRateLimit.reset();
+                leftPull.setPosition(0); //plan to break into multiple steps
                 sleep(1000);
                 drone.setPower(-1);
                 sleep(500);
@@ -232,8 +267,14 @@ public class MatchTeleOp extends LinearOpMode {
 
             if (G2UD) { //linear SLIDE moves up (second controller)
                 dread.setPower(-1);
+                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
+                displayPattern();
+                gamepadRateLimit.reset();
             } else if (G2DD) { //linear SLIDE moves down (second controller)
                 dread.setPower(1);
+                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
+                displayPattern();
+                gamepadRateLimit.reset();
             } else {
                 dread.setPower(0);
             }
@@ -398,5 +439,25 @@ public class MatchTeleOp extends LinearOpMode {
                 outtake.setPosition(1);
             }
         }
+    }
+    protected void setDisplayKind(MatchTeleOp.DisplayKind displayKind)
+    {
+        this.displayKind = displayKind;
+        display.setValue(displayKind.toString());
+    }
+
+    protected void doAutoDisplay()
+    {
+        if (ledCycleDeadline.hasExpired()) {
+            pattern = pattern.next();
+            displayPattern();
+            ledCycleDeadline.reset();
+        }
+    }
+
+    protected void displayPattern()
+    {
+        blinkinLedDriver.setPattern(pattern);
+        patternName.setValue(pattern.toString());
     }
 }
