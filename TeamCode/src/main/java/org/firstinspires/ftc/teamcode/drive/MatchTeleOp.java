@@ -32,7 +32,7 @@ public class MatchTeleOp extends LinearOpMode {
     private CRServo dread = null;
     private Servo leftPull = null;
     private Servo rightPull = null;
-    private CRServo drone = null;
+    private Servo drone = null;
     private Servo outtake = null;
 
 
@@ -98,7 +98,7 @@ public class MatchTeleOp extends LinearOpMode {
         intakein = hardwareMap.get(CRServo.class,"intakein");
         rightPull = hardwareMap.get(Servo.class, "rightPull");
         leftPull = hardwareMap.get(Servo.class, "leftPull");
-        drone = hardwareMap.get(CRServo.class,"drone");
+        drone = hardwareMap.get(Servo.class,"drone");
         outtake = hardwareMap.get(Servo.class,"outtake");
 
         leftFront.setDirection(DcMotor.Direction.REVERSE);
@@ -242,18 +242,25 @@ public class MatchTeleOp extends LinearOpMode {
             }
 
             if (G1back) {
-                pattern = RevBlinkinLedDriver.BlinkinPattern.CONFETTI;
+                pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
-                leftPull.setPosition(0); //plan to break into multiple steps
+                leftPull.setPosition(0.3);
+                //plan to break into multiple steps
                 sleep(1000);
-                drone.setPower(-1);
+                drone.setPosition(1);
                 sleep(500);
                 leftPull.setPosition(0.05);
-                drone.setPower(0);
+                drone.setPosition(0);
                 //moving into claw and linear slides (second controller)
-            }
 
+            }
+            if (G2back) {
+                pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+                displayPattern();
+                gamepadRateLimit.reset();
+
+            }
             if (G2LT == 1) { // Linear pillars move up (second controller)
                 rLift.setPower(1);
                 lLift.setPower(-0.99);
@@ -267,14 +274,10 @@ public class MatchTeleOp extends LinearOpMode {
 
             if (G2UD) { //linear SLIDE moves up (second controller)
                 dread.setPower(-1);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_BLUE;
-                displayPattern();
-                gamepadRateLimit.reset();
+
             } else if (G2DD) { //linear SLIDE moves down (second controller)
                 dread.setPower(1);
-                pattern = RevBlinkinLedDriver.BlinkinPattern.SHOT_RED;
-                displayPattern();
-                gamepadRateLimit.reset();
+
             } else {
                 dread.setPower(0);
             }
@@ -399,10 +402,10 @@ public class MatchTeleOp extends LinearOpMode {
             if (G2back) {
                 leftPull.setPosition(0.5); //plan to break into multiple steps
                 sleep(1000);
-                drone.setPower(-1);
+                drone.setPosition(-1);
                 sleep(500);
                 leftPull.setPosition(0);
-                drone.setPower(0);
+                drone.setPosition(0);
                 //moving into claw and linear slides (second controller)
             }
 

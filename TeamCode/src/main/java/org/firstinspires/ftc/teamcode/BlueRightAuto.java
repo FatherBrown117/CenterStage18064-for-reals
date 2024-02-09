@@ -139,38 +139,38 @@ public class BlueRightAuto extends LinearOpMode {
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
+                    driveBackward(800,0.3);
+                    turnRight(250,0.3);
+                    driveBackward(50,0.3);
+                    driveForward(200,0.3);
+                    turnRight(375,0.3);
 
-                    driveBackward(1255,0.3);
-                    turnLeft(685,0.3);
-                    //driveBackward(50,0.3);
-                    frontDeposit();
-                    strafeLeft(1100, 0.3);
-                    turnRight(150, 0.3);
-                    driveBackward(4100, 0.3);
                     //servo drop second pixel, yellow
 
 
                 } else if (spikeLocation() == 2) {
 
-                    driveBackward(2100,0.3);
-                    frontDeposit();
-                    driveBackward(130, .3);
-                    turnLeft(710, 0.3);
-                    driveBackward(4100, 0.3);
+                    driveBackward(1335,0.3);
+
+                    driveForward(220,0.3);
+                    strafeLeft(600,0.7);
+
+
+                    driveBackward(1100,0.4);
+                    turnLeft(750,0.3);
+
+                    driveBackward(4750,0.4);
+                    strafeRight(300,0.3);
                     //servo drop second pixel, yellow
 
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
                 } else {
-                    driveBackward(1255,0.3);
-                    turnRight(685,0.3);
-                    driveForward(135,0.3);
-                    driveBackward(50, 0.3);
-                    frontDeposit();
-                    turnLeft(685, 0.3);
-                    driveBackward(600,0.3);
-                    turnLeft(610,0.3);
-                    driveBackward(3900, 0.3);
+                    driveBackward(1155,0.3);
+                    turnLeft(680,0.3);
+                    driveBackward(265,0.3);
+
+                    driveForward(200,0.4);
                     //servo drop second pixel, yellow
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK

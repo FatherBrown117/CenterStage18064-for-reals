@@ -146,10 +146,7 @@ public class BlueLeftPush extends LinearOpMode {
                     driveBackward(1155,0.3);
                     turnRight(680,0.3);
                     driveBackward(265,0.3);
-                    //driveBackward(110, 0.3);
-                    //frontDeposit();
-                    //servo drop first pixel, purple
-                    //turnLeft(360,0.3);
+
                     driveForward(300,0.3);
                     turnRight(1535,0.3);
                     driveBackward(1690,0.3);

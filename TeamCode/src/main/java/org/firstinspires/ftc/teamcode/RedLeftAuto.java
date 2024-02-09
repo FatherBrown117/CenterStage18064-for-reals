@@ -139,21 +139,11 @@ public class RedLeftAuto extends LinearOpMode {
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-                    driveBackward(700,0.3);
-                    turnRight(250,0.3);
-                    driveBackward(50,0.3);
-                    driveForward(200,0.3);
-                    turnRight(375,0.3);
-                    driveForward(375,0.3);
-                    turnRight(375,0.3);
-                    driveForward(375,0.3);
-                    turnRight(375,0.3);
-                    driveForward(375,0.3);
-                    strafeRight(375,0.3);
-                    dreadOut(2000);
-                    backdropDeposit();
-                    dreadIn(500);
-                    strafeLeft(375,0.3);
+                    driveBackward(1155,0.3);
+                    turnRight(680,0.3);
+                    driveBackward(265,0.3);
+
+                    driveForward(300,0.3);
 
 
 
@@ -171,7 +161,9 @@ public class RedLeftAuto extends LinearOpMode {
 
 
                 } else if (spikeLocation() == 2) {
+                    driveBackward(1335,0.3);
 
+                    driveForward(220,0.3);
                     /*
                     driveBackward(700,0.3);
                     //turnRight(250,0.3);

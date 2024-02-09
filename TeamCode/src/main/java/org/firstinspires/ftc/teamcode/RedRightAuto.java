@@ -152,8 +152,8 @@ public class RedRightAuto extends LinearOpMode {
                     dreadOut(2250);
                     backdropDeposit();
                     dreadIn(500);
-                    strafeLeft(1100,0.3);
-                    driveBackward(300,0.3);
+                    strafeLeft(1200,0.5);
+                    driveBackward(300,0.5);
 
                     /*
                     driveBackward(1155,0.3);
@@ -180,8 +180,8 @@ public class RedRightAuto extends LinearOpMode {
                     dreadOut(2000);
                     backdropDeposit();
                     dreadIn(500);
-                    driveForward(235, 0.3);
-                    strafeLeft(1250, 0.5);
+                    driveForward(235, 0.5);
+                    strafeLeft(1300, 0.5);
                     //turnLeft(250, 0.3);
                     //driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
@@ -190,10 +190,7 @@ public class RedRightAuto extends LinearOpMode {
                     driveBackward(1155,0.3);
                     turnLeft(680,0.3);
                     driveBackward(265,0.3);
-                    //driveBackward(110, 0.3);
-                    //frontDeposit();
-                    //servo drop first pixel, purple
-                    //turnLeft(360,0.3);
+
                     driveForward(200,0.4);
                     turnLeft(1555,0.3);
                     driveBackward(1690,0.4);
@@ -201,9 +198,9 @@ public class RedRightAuto extends LinearOpMode {
                     //strafeRight(170,0.3);
                     dreadOut(2400);
                     backdropDeposit();
-                    dreadIn(1000);
-                    driveForward(135,0.3);
-                    strafeLeft(1785,0.5);
+                    dreadIn(500);
+                    driveForward(135,0.5);
+                    strafeLeft(1795,0.5);
                     //turnRight(250,0.6);
                     //driveBackward(235,0.3);
 
@@ -541,11 +538,11 @@ public class RedRightAuto extends LinearOpMode {
 
     public void backdropDeposit() {
         outtake.setPosition(0);
-        sleep(1500);
+        sleep(1000);
         driveForward(50,0.3);
         sleep(500);
         outtake.setPosition(1);
-        sleep(1000);
+
     }
 
     public void dreadIn(int time) {
