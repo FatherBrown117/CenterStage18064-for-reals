@@ -148,7 +148,7 @@ public class RedRightAuto extends LinearOpMode {
                     turnRight(375,0.3);
                     strafeLeft(100,0.5);
                     driveBackward(1750,0.3);
-                    strafeRight(270,0.5);
+                    strafeRight(290,0.5);
                     dreadOut(2250);
                     backdropDeposit();
                     dreadIn(500);
@@ -174,7 +174,7 @@ public class RedRightAuto extends LinearOpMode {
                     driveForward(220,0.3);
                     //driveBackward(150, 0.3);
                     //frontDeposit();
-                    turnRight(685,0.3);
+                    turnRight(665,0.3);
                     driveBackward(1675,0.3);
                     strafeRight(100,0.3);
                     dreadOut(2000);
@@ -192,7 +192,7 @@ public class RedRightAuto extends LinearOpMode {
                     driveBackward(265,0.3);
 
                     driveForward(200,0.4);
-                    turnLeft(1555,0.3);
+                    turnLeft(1535,0.3);
                     driveBackward(1690,0.4);
                     strafeRight(275,0.3);
                     //strafeRight(170,0.3);
@@ -538,10 +538,11 @@ public class RedRightAuto extends LinearOpMode {
 
     public void backdropDeposit() {
         outtake.setPosition(0);
-        sleep(1000);
+        sleep(1500);
         driveForward(50,0.3);
         sleep(500);
         outtake.setPosition(1);
+        sleep(1000);
 
     }
 

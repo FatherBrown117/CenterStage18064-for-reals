@@ -149,8 +149,8 @@ public class BlueLeftPush extends LinearOpMode {
 
                     driveForward(300,0.3);
                     turnRight(1535,0.3);
-                    driveBackward(1690,0.3);
-                    strafeLeft(300,0.5);
+                    driveBackward(1835,0.3);
+                    //strafeLeft(300,0.5);
                     //strafeRight(170,0.3);
                     dreadOut(2500);
                     backdropDeposit();
@@ -188,7 +188,7 @@ public class BlueLeftPush extends LinearOpMode {
                     driveBackward(350,0.3);
                     driveForward(450,0.3);
                     turnLeft(355,0.3);
-                    driveBackward(1800,0.3);
+                    driveBackward(1835,0.3);
                     dreadOut(2200);
                     backdropDeposit();
                     dreadIn(500);

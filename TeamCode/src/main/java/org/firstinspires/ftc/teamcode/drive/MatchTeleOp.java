@@ -245,13 +245,15 @@ public class MatchTeleOp extends LinearOpMode {
                 pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
                 displayPattern();
                 gamepadRateLimit.reset();
-                leftPull.setPosition(0.3);
+                leftPull.setPosition(0.5);
+                rightPull.setPosition(0.25);
                 //plan to break into multiple steps
                 sleep(1000);
-                drone.setPosition(1);
-                sleep(500);
-                leftPull.setPosition(0.05);
                 drone.setPosition(0);
+                sleep(500);
+                leftPull.setPosition(0);
+                rightPull.setPosition(0.5);
+                drone.setPosition(0.8);
                 //moving into claw and linear slides (second controller)
 
             }
@@ -282,12 +284,12 @@ public class MatchTeleOp extends LinearOpMode {
                 dread.setPower(0);
             }
 
-            if (G2leftBumper) { //outtake moves inward (second controller)
-                leftPull.setPosition(0.55);
-                //rightPull.setPosition(0);
-            } else if (G2rightBumper) { //outtake moves outward (second controller)
-                leftPull.setPosition(0.05);
-                //rightPull.setPosition(1);
+            if (G2leftBumper) { // moves suspender arm down(second controller)
+                leftPull.setPosition(1);
+                rightPull.setPosition(0);
+            } else if (G2rightBumper) { // moves suspender arm up(second controller)
+                leftPull.setPosition(0);
+                rightPull.setPosition(0.5);
             }
 
             if (gamepad1.right_trigger == 1) { //outtake outtake
